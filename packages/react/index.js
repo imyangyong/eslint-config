@@ -1,17 +1,11 @@
 module.exports = {
-  extends: [
-    'plugin:react/recommended',
-    '@antfu/eslint-config-ts',
-  ],
+  extends: ['plugin:react/recommended', '@imyangyong/eslint-config-ts'],
   settings: {
     react: {
-      version: '17.0',
-    },
+      version: '17.0'
+    }
   },
   rules: {
-    'jsx-quotes': [
-      'error',
-      'prefer-double',
-    ],
-  },
+    'jsx-quotes': ['error', 'prefer-double']
+  }
 }

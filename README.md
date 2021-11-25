@@ -1,4 +1,4 @@
-# @antfu/eslint-config
+# @imyangyong/eslint-config
 
 [![npm](https://img.shields.io/npm/v/@antfu/eslint-config)](https://npmjs.com/package/@antfu/eslint-config)
 

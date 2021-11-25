@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const basic = require('@antfu/eslint-config-basic')
+const basic = require('@imyangyong/eslint-config-basic')
 
 module.exports = {
   extends: [
-    '@antfu/eslint-config-basic',
-    'plugin:@typescript-eslint/recommended',
+    '@imyangyong/eslint-config-basic',
+    'plugin:@typescript-eslint/recommended'
   ],
   overrides: basic.overrides,
   rules: {
@@ -13,10 +13,13 @@ module.exports = {
     // TS
     'no-useless-constructor': 'off',
     '@typescript-eslint/semi': ['error', 'never'],
-    '@typescript-eslint/member-delimiter-style': ['error', { multiline: { delimiter: 'none' } }],
+    '@typescript-eslint/member-delimiter-style': [
+      'error',
+      { multiline: { delimiter: 'none' } }
+    ],
     '@typescript-eslint/type-annotation-spacing': ['error', {}],
 
-    'indent': 'off',
+    indent: 'off',
     '@typescript-eslint/indent': ['error', 2],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
@@ -35,6 +38,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/ban-types': 'off',
-  },
+    '@typescript-eslint/ban-types': 'off'
+  }
 }

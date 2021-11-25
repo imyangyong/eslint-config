@@ -1,10 +1,10 @@
 {
-  "name": "@antfu/eslint-config-vue",
+  "name": "@imyangyong/eslint-config-vue",
   "version": "0.10.0",
   "description": "",
   "keywords": [],
   "license": "MIT",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/antfu/)",
+  "author": "Angus Yang",
   "files": [
     "index.js"
   ],
@@ -16,7 +16,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@antfu/eslint-config-ts": "^0.10.0",
+    "@imyangyong/eslint-config-ts": "^0.10.0",
     "eslint-plugin-vue": "7.19.1"
   },
   "devDependencies": {

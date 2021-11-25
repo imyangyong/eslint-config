@@ -4,20 +4,18 @@ importers:
 
   .:
     specifiers:
-      '@antfu/eslint-config': '*'
       eslint: ^8.0.1
       lerna: ^4.0.0
       typescript: ^4.4.4
     devDependencies:
-      '@antfu/eslint-config': link:packages/all
       eslint: 8.0.1
       lerna: 4.0.0
       typescript: 4.4.4
 
   packages/all:
     specifiers:
-      '@antfu/eslint-config-react': ^0.10.0
-      '@antfu/eslint-config-vue': ^0.10.0
+      '@imyangyong/eslint-config-react': ^0.10.0
+      '@imyangyong/eslint-config-vue': ^0.10.0
       '@typescript-eslint/eslint-plugin': ^5.0.0
       '@typescript-eslint/parser': ^5.0.0
       eslint: ^8.0.1
@@ -34,8 +32,8 @@ importers:
       jsonc-eslint-parser: ^1.4.1
       yaml-eslint-parser: ^0.4.1
     dependencies:
-      '@antfu/eslint-config-react': link:../react
-      '@antfu/eslint-config-vue': link:../vue
+      '@imyangyong/eslint-config-react': link:../react
+      '@imyangyong/eslint-config-vue': link:../vue
       '@typescript-eslint/eslint-plugin': 5.0.0_3b49a3094ddb22ccc5b4c2c2360792e0
       '@typescript-eslint/parser': 5.0.0_eslint@8.0.1+typescript@4.4.4
       eslint-config-standard: 16.0.3_2696c7e3b0a38ee49d207f214f0f4d72
@@ -84,13 +82,13 @@ importers:
 
   packages/react:
     specifiers:
-      '@antfu/eslint-config-ts': ^0.10.0
+      '@imyangyong/eslint-config-ts': ^0.10.0
       eslint: ^8.0.1
       eslint-plugin-react: ^7.26.1
       react: ^17.0.2
       typescript: ^4.4.4
     dependencies:
-      '@antfu/eslint-config-ts': link:../typescript
+      '@imyangyong/eslint-config-ts': link:../typescript
       eslint-plugin-react: 7.26.1_eslint@8.0.1
     devDependencies:
       eslint: 8.0.1
@@ -99,12 +97,12 @@ importers:
 
   packages/typescript:
     specifiers:
-      '@antfu/eslint-config-basic': ^0.10.0
+      '@imyangyong/eslint-config-basic': ^0.10.0
       '@typescript-eslint/eslint-plugin': ^5.0.0
       '@typescript-eslint/parser': ^5.0.0
       eslint: ^8.0.1
     dependencies:
-      '@antfu/eslint-config-basic': link:../basic
+      '@imyangyong/eslint-config-basic': link:../basic
       '@typescript-eslint/eslint-plugin': 5.0.0_3b49a3094ddb22ccc5b4c2c2360792e0
       '@typescript-eslint/parser': 5.0.0_eslint@8.0.1+typescript@4.4.4
     devDependencies:
@@ -112,11 +110,11 @@ importers:
 
   packages/vue:
     specifiers:
-      '@antfu/eslint-config-ts': ^0.10.0
+      '@imyangyong/eslint-config-ts': ^0.10.0
       eslint: ^8.0.1
       eslint-plugin-vue: 7.19.1
     dependencies:
-      '@antfu/eslint-config-ts': link:../typescript
+      '@imyangyong/eslint-config-ts': link:../typescript
       eslint-plugin-vue: 7.19.1_eslint@8.0.1
     devDependencies:
       eslint: 8.0.1
@@ -2230,7 +2228,7 @@ packages:
     dev: true
 
   /encoding/0.1.13:
-    resolution: {integrity: sha1-VldK/deR9UqOmyeFwFgqLSYhD6k=, tarball: encoding/download/encoding-0.1.13.tgz}
+    resolution: {integrity: sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==}
     requiresBuild: true
     dependencies:
       iconv-lite: 0.6.2
@@ -5644,7 +5642,7 @@ packages:
     dev: true
 
   /uglify-js/3.10.0:
-    resolution: {integrity: sha1-OXp+bjHOggv9HLVbgE7hQMWHqec=, tarball: uglify-js/download/uglify-js-3.10.0.tgz}
+    resolution: {integrity: sha512-Esj5HG5WAyrLIdYU74Z3JdG2PxdIusvj6IWHMtlyESxc7kcDz7zYlYjpnSokn1UbpV0d/QX9fan7gkCNd/9BQA==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true
