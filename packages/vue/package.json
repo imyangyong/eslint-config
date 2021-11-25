@@ -16,7 +16,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@imyangyong/eslint-config-ts": "^0.10.0",
+    "@imyangyong/eslint-config-ts": "^0.0.0",
     "eslint-plugin-vue": "7.19.1"
   },
   "devDependencies": {
