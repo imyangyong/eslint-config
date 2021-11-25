@@ -1,13 +1,13 @@
 # @imyangyong/eslint-config
 
-[![npm](https://img.shields.io/npm/v/@antfu/eslint-config)](https://npmjs.com/package/@antfu/eslint-config)
+[![npm](https://img.shields.io/npm/v/@imyangyong/eslint-config)](https://npmjs.com/package/@imyangyong/eslint-config)
 
 ## Usage
 
 ### Install
 
 ```bash
-pnpm add -D eslint @antfu/eslint-config
+pnpm add -D eslint @imyangyong/eslint-config
 ```
 
 ### Config `.eslintrc`
@@ -15,7 +15,7 @@ pnpm add -D eslint @antfu/eslint-config
 ```json
 {
   "extends": [
-    "@antfu"
+    "@imyangyong"
   ]
 }
 ```
