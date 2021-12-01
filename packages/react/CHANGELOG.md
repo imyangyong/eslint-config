@@ -3,23 +3,9 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.0.2](https://github.com/imyangyong/eslint-config/compare/v0.10.0...v0.0.2) (2021-11-25)
+# [0.11.0](https://github.com/antfu/eslint-config/compare/v0.10.0...v0.11.0) (2021-11-27)
 
-
-### Bug Fixes
-
-* 版本引用问题 ([2852974](https://github.com/imyangyong/eslint-config/commit/28529746e864a55f04b24ed2fe527620546d6c03))
-
-
-
-
-
-## [0.0.1](https://github.com/imyangyong/eslint-config/compare/v0.10.0...v0.0.1) (2021-11-25)
-
-
-### Bug Fixes
-
-* 版本引用问题 ([2852974](https://github.com/imyangyong/eslint-config/commit/28529746e864a55f04b24ed2fe527620546d6c03))
+**Note:** Version bump only for package @antfu/eslint-config-react
 
 
 
