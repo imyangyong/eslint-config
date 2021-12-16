@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/imyangyong/eslint-config/compare/v0.0.3...v0.1.0) (2021-12-16)
+
+
+### Bug Fixes
+
+* `no-use-before-define` for functions ([0722603](https://github.com/imyangyong/eslint-config/commit/0722603cfee659abab80e9e7f30a8112702ccc12))
+* **react:** disable `react/react-in-jsx-scope` ([2ccdc6f](https://github.com/imyangyong/eslint-config/commit/2ccdc6f2a5850081a12a7484625745dfbb371cc9))
+* rules ([6373bc7](https://github.com/imyangyong/eslint-config/commit/6373bc7ec95fd97379ee6b550148fa34f0611ace))
+
+
+### Features
+
+* rules for tests ([2e07691](https://github.com/imyangyong/eslint-config/commit/2e07691eebc3d74bf0c9d8b14cedc7ef7c89fbfb))
+* update ts rules, enforce import type ([dd76d5d](https://github.com/imyangyong/eslint-config/commit/dd76d5d8d9e0f016a00ab92f65cadb1655395c1c))
+
+
+
+
+
 ## [0.13.1](https://github.com/antfu/eslint-config/compare/v0.13.0...v0.13.1) (2021-12-12)
 
 

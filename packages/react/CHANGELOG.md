@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/imyangyong/eslint-config/compare/v0.0.3...v0.1.0) (2021-12-16)
+
+
+### Bug Fixes
+
+* **react:** disable `react/react-in-jsx-scope` ([2ccdc6f](https://github.com/imyangyong/eslint-config/commit/2ccdc6f2a5850081a12a7484625745dfbb371cc9))
+
+
+
+
+
 ## [0.13.1](https://github.com/antfu/eslint-config/compare/v0.13.0...v0.13.1) (2021-12-12)
 
 **Note:** Version bump only for package @antfu/eslint-config-react
