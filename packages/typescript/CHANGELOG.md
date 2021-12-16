@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/antfu/eslint-config/compare/v0.13.0...v0.13.1) (2021-12-12)
+
+
+### Bug Fixes
+
+* `no-use-before-define` for functions ([0722603](https://github.com/antfu/eslint-config/commit/0722603cfee659abab80e9e7f30a8112702ccc12))
+
+
+
+
+
+# [0.13.0](https://github.com/antfu/eslint-config/compare/v0.12.2...v0.13.0) (2021-12-12)
+
+
+### Features
+
+* update ts rules, enforce import type ([dd76d5d](https://github.com/antfu/eslint-config/commit/dd76d5d8d9e0f016a00ab92f65cadb1655395c1c))
+
+
+
+
+
+## [0.12.1](https://github.com/antfu/eslint-config/compare/v0.12.0...v0.12.1) (2021-12-05)
+
+
+### Bug Fixes
+
+* rules ([6373bc7](https://github.com/antfu/eslint-config/commit/6373bc7ec95fd97379ee6b550148fa34f0611ace))
+
+
+
+
+
+# [0.12.0](https://github.com/antfu/eslint-config/compare/v0.11.1...v0.12.0) (2021-12-04)
+
+**Note:** Version bump only for package @antfu/eslint-config-ts
+
+
+
+
+
 # [0.11.0](https://github.com/antfu/eslint-config/compare/v0.10.0...v0.11.0) (2021-11-27)
 
 **Note:** Version bump only for package @antfu/eslint-config-ts
