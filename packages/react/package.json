@@ -1,6 +1,6 @@
 {
   "name": "@imyangyong/eslint-config-react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "keywords": [],
   "license": "MIT",
@@ -19,7 +19,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@imyangyong/eslint-config-ts": "^0.1.0",
+    "@imyangyong/eslint-config-ts": "^0.2.0",
     "eslint-plugin-react": "^7.28.0"
   },
   "devDependencies": {

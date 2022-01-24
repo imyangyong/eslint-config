@@ -1,0 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [0.2.0](https://github.com/imyangyong/eslint-config/compare/v0.1.0...v0.2.0) (2022-01-24)
+
+
+### Bug Fixes
+
+* upgrade deps, close [#68](https://github.com/imyangyong/eslint-config/issues/68) ([7b71c78](https://github.com/imyangyong/eslint-config/commit/7b71c7852d3db3df05961893b4f085c16d95d274))
+
+
+### Features
+
+* update ts rules ([13c90b5](https://github.com/imyangyong/eslint-config/commit/13c90b51504d098ea819dad29888fa5e12f11d3c))
