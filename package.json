@@ -7,7 +7,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "lint": "npx eslint --ext .js,.json,.vue --fix .",
-    "release": "lerna publish --conventional-commits --tag-version-prefix='version'"
+    "release": "lerna publish --conventional-commits --force-git-tag"
   },
   "devDependencies": {
     "@imyangyong/eslint-config": "*",
