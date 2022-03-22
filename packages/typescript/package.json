@@ -5,10 +5,10 @@
   "keywords": [],
   "license": "MIT",
   "author": "Angus Yang",
+  "main": "index.js",
   "files": [
     "index.js"
   ],
-  "main": "index.js",
   "publishConfig": {
     "access": "public"
   },
@@ -18,10 +18,10 @@
   },
   "dependencies": {
     "@imyangyong/eslint-config-basic": "^0.2.1",
-    "@typescript-eslint/eslint-plugin": "^5.10.1",
-    "@typescript-eslint/parser": "^5.10.1"
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0"
   },
   "devDependencies": {
-    "eslint": "^8.7.0"
+    "eslint": "^8.11.0"
   }
 }

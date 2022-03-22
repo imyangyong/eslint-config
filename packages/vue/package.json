@@ -5,10 +5,10 @@
   "keywords": [],
   "license": "MIT",
   "author": "Angus Yang",
+  "main": "index.js",
   "files": [
     "index.js"
   ],
-  "main": "index.js",
   "peerDependencies": {
     "eslint": ">=7.4.0"
   },
@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@imyangyong/eslint-config-ts": "^0.2.1",
-    "eslint-plugin-vue": "^8.4.0"
+    "eslint-plugin-vue": "^8.5.0"
   },
   "devDependencies": {
-    "eslint": "^8.7.0"
+    "eslint": "^8.11.0"
   }
 }
