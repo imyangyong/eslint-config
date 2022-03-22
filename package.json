@@ -4,7 +4,6 @@
   "license": "MIT",
   "author": "Angus Yang",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "lint": "eslint .",
     "release": "lerna publish --conventional-commits"
   },
