@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.3.0 (2022-03-22)
+
+
+### Bug Fixes
+
+* 版本引用问题 ([2852974](https://github.com/imyangyong/eslint-config/commit/28529746e864a55f04b24ed2fe527620546d6c03))
+* improve rules for specific files ([d701469](https://github.com/imyangyong/eslint-config/commit/d701469a551b2321cab6d75bf18eb71d96dd6f2a))
+* upgrade deps, close [#68](https://github.com/imyangyong/eslint-config/issues/68) ([7b71c78](https://github.com/imyangyong/eslint-config/commit/7b71c7852d3db3df05961893b4f085c16d95d274))
+
+
+### Features
+
+* add react and all ([a7fbdca](https://github.com/imyangyong/eslint-config/commit/a7fbdcad4b20294e26e817fae468f468376e49cf))
+* support eslint v8 ([e9027d5](https://github.com/imyangyong/eslint-config/commit/e9027d5e20540dd6c6adb6a970a6dcbcf7314a81))
+* update deps ([83a54e0](https://github.com/imyangyong/eslint-config/commit/83a54e07d5f1b93df726cbd8d81fb5abee5f60bc))
+* update ts rules ([13c90b5](https://github.com/imyangyong/eslint-config/commit/13c90b51504d098ea819dad29888fa5e12f11d3c))
+* upgrade eslint-config-standard ([d33ec89](https://github.com/imyangyong/eslint-config/commit/d33ec89b7619895cf1541e597e0cb664f69fc95f))
+
+
+
+
+
 ## [0.2.1](https://github.com/imyangyong/eslint-config/compare/v0.16.1...v0.2.1) (2022-03-01)
 
 
