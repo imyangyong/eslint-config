@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/imyangyong/eslint-config/compare/release0.3.0...release0.3.1) (2022-03-29)
+
+
+### Bug Fixes
+
+* eslint-cofig-standard 17.0.0-1 peer dependice require eslint-config-n 14.0.0 ([d0fef51](https://github.com/imyangyong/eslint-config/commit/d0fef5164c4e2bec292c7262b2217d019a1dc0c0))
+
+
+
+
+
 # 0.3.0 (2022-03-22)
 
 
