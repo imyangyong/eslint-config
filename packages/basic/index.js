@@ -5,7 +5,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    'standard',
+    './standard',
     'plugin:import/recommended',
     'plugin:eslint-comments/recommended',
     'plugin:jsonc/recommended-with-jsonc',
@@ -32,10 +32,11 @@ module.exports = {
   plugins: [
     'html',
     'unicorn',
+    'imyangyong',
   ],
   settings: {
     'import/resolver': {
-      node: { extensions: ['.js', '.mjs', '.ts', '.d.ts'] },
+      node: { extensions: ['.js', '.mjs'] },
     },
   },
   overrides: [
@@ -43,9 +44,9 @@ module.exports = {
       files: ['*.json', '*.json5'],
       parser: 'jsonc-eslint-parser',
       rules: {
-        'quotes': ['error', 'double'],
-        'quote-props': ['error', 'always'],
-        'comma-dangle': ['error', 'never'],
+        'jsonc/quotes': ['error', 'double'],
+        'jsonc/quote-props': ['error', 'always'],
+        'jsonc/comma-dangle': ['error', 'never'],
       },
     },
     {
@@ -134,6 +135,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/no-use-before-define': 'off',
         '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/comma-dangle': 'off',
         'import/no-unresolved': 'off',
         'no-alert': 'off',
         'no-console': 'off',
@@ -181,7 +183,15 @@ module.exports = {
     ],
     'object-curly-spacing': ['error', 'always'],
     'no-return-await': 'off',
-    'space-before-function-paren': ['error', 'never'],
+    'space-before-function-paren': [
+      'error',
+      {
+        anonymous: 'always',
+        named: 'never',
+        asyncArrow: 'always',
+      },
+    ],
+    'no-multiple-empty-lines': ['error', { max: 1, maxBOF: 0, maxEOF: 1 }],
 
     // es6
     'no-var': 'error',
@@ -288,5 +298,10 @@ module.exports = {
     // yml
     'yml/quotes': ['error', { prefer: 'single', avoidEscape: false }],
     'yml/no-empty-document': 'off',
+
+    // imyangyong
+    'imyangyong/if-newline': 'error',
+    'imyangyong/import-dedupe': 'error',
+    // 'imyangyong/prefer-inline-type-import': 'error',
   },
 }

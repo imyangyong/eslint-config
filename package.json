@@ -1,16 +1,19 @@
 {
   "name": "@imyangyong/eslint-config-monorepo",
+  "version": "0.3.1",
   "private": true,
   "license": "MIT",
   "author": "Angus Yang",
   "scripts": {
     "lint": "eslint .",
-    "release": "lerna publish --conventional-commits"
+    "prepare": "pnpm -r run stub",
+    "release": "bumpp package.json packages/*/package.json --commit --push --tag 'release%s' && pnpm -r publish --access public"
   },
   "devDependencies": {
     "@imyangyong/eslint-config": "*",
-    "eslint": "^8.11.0",
-    "lerna": "^4.0.0",
-    "typescript": "^4.6.2"
+    "bumpp": "^7.1.1",
+    "eslint": "^8.14.0",
+    "eslint-plugin-imyangyong": "workspace:*",
+    "typescript": "^4.6.3"
   }
 }
