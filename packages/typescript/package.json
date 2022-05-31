@@ -9,19 +9,16 @@
   "files": [
     "index.js"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "peerDependencies": {
     "eslint": ">=7.4.0",
     "typescript": ">=3.9"
   },
   "dependencies": {
     "@imyangyong/eslint-config-basic": "workspace:*",
-    "@typescript-eslint/eslint-plugin": "^5.20.0",
-    "@typescript-eslint/parser": "^5.20.0"
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0"
   },
   "devDependencies": {
-    "eslint": "^8.14.0"
+    "eslint": "^8.16.0"
   }
 }
