@@ -2,7 +2,7 @@
   "name": "eslint-plugin-imyangyong",
   "version": "0.4.1",
   "license": "MIT",
-  "homepage": "https://github.com/antfu/eslint-config",
+  "homepage": "https://github.com/imyangyong/eslint-config",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
