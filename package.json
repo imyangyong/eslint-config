@@ -6,14 +6,15 @@
   "author": "Angus Yang",
   "scripts": {
     "lint": "eslint .",
+    "test": "pnpm -r run test",
     "prepare": "pnpm -r run stub",
     "release": "bumpp package.json packages/*/package.json --commit --push --tag 'release%s' && pnpm -r publish --access public"
   },
   "devDependencies": {
     "@imyangyong/eslint-config": "*",
-    "bumpp": "^7.1.1",
-    "eslint": "^8.16.0",
+    "bumpp": "^8.2.1",
+    "eslint": "^8.23.0",
     "eslint-plugin-imyangyong": "workspace:*",
-    "typescript": "^4.7.2"
+    "typescript": "^4.8.2"
   }
 }
