@@ -1,5 +1,9 @@
 module.exports = {
-  extends: ['plugin:react/recommended', '@imyangyong/eslint-config-ts'],
+  extends: [
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    '@imyangyong/eslint-config-ts',
+  ],
   settings: {
     react: {
       version: '17.0',
