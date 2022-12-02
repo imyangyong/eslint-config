@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-imyangyong",
-  "version": "0.4.4",
+  "version": "0.5.0",
   "license": "MIT",
   "homepage": "https://github.com/imyangyong/eslint-config",
   "main": "./dist/index.cjs",
