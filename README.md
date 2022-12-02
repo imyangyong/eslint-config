@@ -6,8 +6,9 @@
 - Auto fix for formatting (aimed to be used standalone without Prettier)
 - Designed to work with TypeScript, Vue out-of-box
 - Lint also for json, yaml, markdown
-- Sorted imports, dangling commas for cleaner commit diff
+- Sorted imports, dangling commas
 - Reasonable defaults, best practices, only one-line of config
+- **Style principle**: Minimal for reading, stable for diff
 
 ## Usage
 
@@ -55,6 +56,10 @@ Install [VS Code ESLint extension](https://marketplace.visualstudio.com/items?it
   }
 }
 ```
+
+### TypeScript Aware Rules
+
+Type aware rules are enabled when a `tsconfig.eslint.json` is found in the project root. Refer to [this file](https://github.com/antfu/eslint-config/blob/main/packages/typescript/index.js#L17).
 
 ## Extended Reading
 

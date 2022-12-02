@@ -13,10 +13,12 @@
     "eslint": ">=7.4.0"
   },
   "dependencies": {
+    "@imyangyong/eslint-config-basic": "workspace:*",
     "@imyangyong/eslint-config-ts": "workspace:*",
-    "eslint-plugin-vue": "^9.4.0"
+    "eslint-plugin-vue": "^9.8.0",
+    "local-pkg": "^0.4.2"
   },
   "devDependencies": {
-    "eslint": "^8.23.0"
+    "eslint": "^8.28.0"
   }
 }

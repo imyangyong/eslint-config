@@ -35,6 +35,7 @@ module.exports = {
     'html',
     'unicorn',
     'imyangyong',
+    'no-only-tests',
   ],
   settings: {
     'import/resolver': {
@@ -155,6 +156,7 @@ module.exports = {
       files: ['*.test.ts', '*.test.js', '*.spec.ts', '*.spec.js'],
       rules: {
         'no-unused-expressions': 'off',
+        'no-only-tests/no-only-tests': 'error',
       },
     },
     {
@@ -283,6 +285,7 @@ module.exports = {
     'require-await': 'off',
     'no-return-assign': 'off',
     'operator-linebreak': ['error', 'before'],
+    'max-statements-per-line': ['error', { max: 1 }],
 
     // unicorns
     // Pass error message when throwing errors
