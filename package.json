@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@imyangyong/eslint-config-monorepo",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "packageManager": "pnpm@7.27.1",
   "license": "MIT",
   "author": "Angus Yang",
