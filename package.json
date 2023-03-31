@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "test": "pnpm -r run test",
     "prepare": "pnpm -r run stub",
-    "release": "bumpp --commit --push --tag 'release%s'"
+    "release": "bumpp -r --tag 'release%s'"
   },
   "devDependencies": {
     "@imyangyong/eslint-config": "workspace:*",
