@@ -42,6 +42,8 @@ module.exports = {
     '!.github',
     '!.vitepress',
     '!.vscode',
+    // force exclude
+    '.vitepress/cache',
   ],
   plugins: [
     'html',
@@ -154,9 +156,10 @@ module.exports = {
       },
     },
     {
-      files: ['*.js', '*.cjs'],
+      files: ['*.js', '*.cjs', '*.jsx'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-require-imports': 'off',
       },
     },
     {
@@ -188,6 +191,8 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/comma-dangle': 'off',
         '@typescript-eslint/consistent-type-imports': 'off',
+        '@typescript-eslint/no-namespace': 'off',
+        '@typescript-eslint/no-require-imports': 'off',
         'import/no-unresolved': 'off',
         'unused-imports/no-unused-imports': 'off',
         'unused-imports/no-unused-vars': 'off',
@@ -207,6 +212,7 @@ module.exports = {
     'import/no-mutable-exports': 'error',
     'import/no-unresolved': 'off',
     'import/no-absolute-path': 'off',
+    'import/newline-after-import': ['error', { count: 1, considerComments: true }],
 
     // Common
     'semi': ['error', 'never'],
@@ -308,11 +314,17 @@ module.exports = {
     'no-with': 'error',
     'no-void': 'error',
     'no-useless-escape': 'off',
+    'no-invalid-this': 'error',
     'vars-on-top': 'error',
     'require-await': 'off',
     'no-return-assign': 'off',
     'operator-linebreak': ['error', 'before'],
     'max-statements-per-line': ['error', { max: 1 }],
+
+    // node
+    // 'n/prefer-global/process': ['error', 'never'], // Not sure if we need it as we are using `process.env.NODE_ENV` a lot in front-end.
+    'n/prefer-global/buffer': ['error', 'never'],
+    'n/no-callback-literal': 'off',
 
     // unicorns
     // Pass error message when throwing errors
@@ -345,7 +357,6 @@ module.exports = {
     'import/no-named-as-default-member': 'off',
     'import/no-named-as-default': 'off',
     'import/namespace': 'off',
-    'n/no-callback-literal': 'off',
 
     'sort-imports': [
       'error',
