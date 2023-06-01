@@ -59,7 +59,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.json', '*.json5'],
+      files: ['*.json', '*.json5', '*.jsonc'],
       parser: 'jsonc-eslint-parser',
       rules: {
         'jsonc/array-bracket-spacing': ['error', 'never'],
@@ -202,6 +202,8 @@ module.exports = {
         'no-undef': 'off',
         'no-unused-expressions': 'off',
         'no-unused-vars': 'off',
+        'antfu/no-cjs-exports': 'off',
+        'antfu/no-ts-export-equal': 'off',
       },
     },
   ],
@@ -256,6 +258,26 @@ module.exports = {
         named: 'never',
         asyncArrow: 'always',
       },
+    ],
+    'no-restricted-globals': [
+      'error',
+      { name: 'global', message: 'Use `globalThis` instead.' },
+      { name: 'self', message: 'Use `globalThis` instead.' },
+      { name: 'isNaN', message: 'Use `Number.isNaN` instead' },
+      { name: 'isFinite', message: 'Use `Number.isFinite` instead' },
+      { name: 'parseFloat', message: 'Use `Number.parseFloat` instead' },
+      { name: 'parseInt', message: 'Use `Number.parseInt` instead' },
+    ],
+    'no-restricted-properties': [
+      'error',
+      { object: 'globalThis', property: 'isNaN', message: 'Use `Number.isNaN` instead' },
+      { object: 'globalThis', property: 'isFinite', message: 'Use `Number.isFinite` instead' },
+      { object: 'globalThis', property: 'parseFloat', message: 'Use `Number.parseFloat` instead' },
+      { object: 'globalThis', property: 'parseInt', message: 'Use `Number.parseInt` instead' },
+      { object: 'window', property: 'isNaN', message: 'Use `Number.isNaN` instead' },
+      { object: 'window', property: 'isFinite', message: 'Use `Number.isFinite` instead' },
+      { object: 'window', property: 'parseFloat', message: 'Use `Number.parseFloat` instead' },
+      { object: 'window', property: 'parseInt', message: 'Use `Number.parseInt` instead' },
     ],
 
     // es6
