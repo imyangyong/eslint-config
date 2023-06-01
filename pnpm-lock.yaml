@@ -1,10 +1,14 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 importers:
 
   .:
     devDependencies:
-      '@antfu/eslint-config':
+      '@imyangyong/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
       bumpp:
@@ -13,9 +17,9 @@ importers:
       eslint:
         specifier: ^8.41.0
         version: 8.41.0
-      eslint-plugin-antfu:
-        specifier: link:./packages/eslint-plugin-antfu
-        version: link:packages/eslint-plugin-antfu
+      eslint-plugin-imyangyong:
+        specifier: link:./packages/eslint-plugin-imyangyong
+        version: link:packages/eslint-plugin-imyangyong
       rimraf:
         specifier: ^5.0.1
         version: 5.0.1
@@ -25,7 +29,7 @@ importers:
 
   packages/eslint-config:
     dependencies:
-      '@antfu/eslint-config-vue':
+      '@imyangyong/eslint-config-vue':
         specifier: workspace:*
         version: link:../eslint-config-vue
       '@typescript-eslint/eslint-plugin':
@@ -74,9 +78,6 @@ importers:
 
   packages/eslint-config-basic:
     dependencies:
-      eslint-plugin-antfu:
-        specifier: workspace:*
-        version: link:../eslint-plugin-antfu
       eslint-plugin-eslint-comments:
         specifier: ^3.2.0
         version: 3.2.0(eslint@8.41.0)
@@ -86,6 +87,9 @@ importers:
       eslint-plugin-import:
         specifier: ^2.27.5
         version: 2.27.5(@typescript-eslint/parser@5.59.7)(eslint@8.41.0)
+      eslint-plugin-imyangyong:
+        specifier: workspace:*
+        version: link:../eslint-plugin-imyangyong
       eslint-plugin-jsonc:
         specifier: ^2.8.0
         version: 2.8.0(eslint@8.41.0)
@@ -123,7 +127,7 @@ importers:
 
   packages/eslint-config-react:
     dependencies:
-      '@antfu/eslint-config-ts':
+      '@imyangyong/eslint-config-ts':
         specifier: workspace:*
         version: link:../eslint-config-ts
       eslint-plugin-react:
@@ -145,7 +149,7 @@ importers:
 
   packages/eslint-config-ts:
     dependencies:
-      '@antfu/eslint-config-basic':
+      '@imyangyong/eslint-config-basic':
         specifier: workspace:*
         version: link:../eslint-config-basic
       '@typescript-eslint/eslint-plugin':
@@ -167,10 +171,10 @@ importers:
 
   packages/eslint-config-vue:
     dependencies:
-      '@antfu/eslint-config-basic':
+      '@imyangyong/eslint-config-basic':
         specifier: workspace:*
         version: link:../eslint-config-basic
-      '@antfu/eslint-config-ts':
+      '@imyangyong/eslint-config-ts':
         specifier: workspace:*
         version: link:../eslint-config-ts
       eslint-plugin-vue:
@@ -184,7 +188,7 @@ importers:
         specifier: ^8.41.0
         version: 8.41.0
 
-  packages/eslint-plugin-antfu:
+  packages/eslint-plugin-imyangyong:
     dependencies:
       '@typescript-eslint/utils':
         specifier: ^5.59.7
@@ -888,7 +892,7 @@ packages:
       grapheme-splitter: 1.0.4
       ignore: 5.2.4
       natural-compare-lite: 1.4.0
-      semver: 7.5.1
+      semver: 7.3.8
       tsutils: 3.21.0(typescript@5.0.2)
       typescript: 5.0.2
     transitivePeerDependencies:
