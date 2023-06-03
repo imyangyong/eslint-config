@@ -2,16 +2,16 @@
  * The filename should follow the filename naming convention
  */
 import { createEslintRule } from '../utils/eslint'
-import { getFilename, getBasename, getFilePath } from '../utils/filename';
-import { transformRuleWithPrefinedMatchSyntax, matchRule } from '../utils/rule';
+import { getBasename, getFilePath, getFilename } from '../utils/filename'
+import { matchRule, transformRuleWithPrefinedMatchSyntax } from '../utils/rule'
 import {
-  validateNamingPatternObject,
   filenameNamingPatternValidator,
   globPatternValidator,
-} from '../utils/validation';
+  validateNamingPatternObject,
+} from '../utils/validation'
 import {
   FILENAME_NAMING_CONVENTION_ERROR_MESSAGE,
-} from '../constants/message';
+} from '../constants/message'
 
 export const RULE_NAME = 'filename-naming-convention'
 export type MessageIds = ''
@@ -39,70 +39,71 @@ export default createEslintRule<Options, MessageIds>({
       },
     ],
     messages: {
-      '': ''
+      '': '',
     },
   },
   defaultOptions: [
-    {}
+    {},
   ],
   create(context) {
     return {
       Program: (node) => {
-        const rules = context.options[0];
+        const rules = context.options[0]
         const message = validateNamingPatternObject(
           rules,
           globPatternValidator,
-          filenameNamingPatternValidator
-        );
+          filenameNamingPatternValidator,
+        )
 
         if (message) {
           context.report({
             node,
             // @ts-expect-error message way instead of messageId
             message,
-          });
-          return;
+          })
+          return
         }
 
-        const filenameWithPath = getFilePath(context);
-        const filename = getFilename(filenameWithPath);
-        const { ignoreMiddleExtensions } = context.options[1] || {};
+        const filenameWithPath = getFilePath(context)
+        const filename = getFilename(filenameWithPath)
+        const { ignoreMiddleExtensions } = context.options[1] || {}
 
         for (const [
           originalFilenamePattern,
           originalNamingPattern,
         ] of Object.entries(rules)) {
           try {
-            const [filenamePattern, namingPattern] =
-              transformRuleWithPrefinedMatchSyntax(
+            const [filenamePattern, namingPattern]
+              = transformRuleWithPrefinedMatchSyntax(
                 [originalFilenamePattern, originalNamingPattern],
-                filenameWithPath
-              );
+                filenameWithPath,
+              )
 
             const matchResult = matchRule(
               filenameWithPath,
               filenamePattern,
               getBasename(filename, ignoreMiddleExtensions),
-              namingPattern
-            );
+              namingPattern,
+            )
 
             if (matchResult) {
               throw new Error(
                 FILENAME_NAMING_CONVENTION_ERROR_MESSAGE(
                   filename,
-                  originalNamingPattern
-                )
-              );
+                  originalNamingPattern,
+                ),
+              )
             }
-          } catch (error) {
+          }
+          catch (error) {
             context.report({
               node,
               // @ts-expect-error message way instead of messageId
               message: error.message,
-            });
+            })
           }
         }
       },
-    };
+    }
   },
 })

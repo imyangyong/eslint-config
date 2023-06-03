@@ -1,10 +1,10 @@
 import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { it } from 'vitest'
-import rule, { RULE_NAME, type MessageIds, type Options } from './filename-blocklist'
+import rule, { type MessageIds, type Options, RULE_NAME } from './filename-blocklist'
 
 const valids = [
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/foo.model.ts',
     options: [
       {
@@ -14,7 +14,7 @@ const valids = [
     ],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/foo.util.ts',
     options: [
       {
@@ -24,7 +24,7 @@ const valids = [
     ],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/foo.apis.ts',
     options: [
       {
@@ -37,7 +37,7 @@ const valids = [
 
 const invalids = [
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/foo.models.ts',
     options: [
       {
@@ -55,7 +55,7 @@ const invalids = [
     ],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/foo.utils.ts',
     options: [
       {

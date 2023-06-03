@@ -94,7 +94,7 @@ module.exports = {
       },
     ],
   },
-};
+}
 ```
 
 #### rule configuration object
@@ -120,7 +120,7 @@ module.exports = {
       },
     ],
   },
-};
+}
 ```
 
 ## Further Reading

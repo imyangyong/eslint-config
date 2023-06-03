@@ -1,10 +1,10 @@
 import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { it } from 'vitest'
-import rule, { RULE_NAME, type MessageIds, type Options } from './folder-naming-convention'
+import rule, { type MessageIds, type Options, RULE_NAME } from './folder-naming-convention'
 
 const valids = [
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/components/DisplayLabel/__tests__/displayLabel.test.js',
     options: [{ '*/__tests__/': 'PASCAL_CASE', 'src/*/': 'CAMEL_CASE' }],
   },
@@ -12,7 +12,7 @@ const valids = [
 
 const invalids = [
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/Components/DisplayLabel/__tests__/displayLabel.test.js',
     options: [{ '*/__tests__/': 'PASCAL_CASE', 'src/*/': 'CAMEL_CASE' }],
     errors: [
@@ -25,7 +25,7 @@ const invalids = [
     ],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/components/displayLabel/__tests__/displayLabel.test.js',
     options: [{ '*/__tests__/': 'PASCAL_CASE', 'src/*/': 'CAMEL_CASE' }],
     errors: [

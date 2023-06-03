@@ -1,25 +1,25 @@
 import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { it } from 'vitest'
-import rule, { RULE_NAME, type MessageIds, type Options } from './folder-match-with-fex'
+import rule, { type MessageIds, type Options, RULE_NAME } from './folder-match-with-fex'
 
 const valids = [
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: '/__tests__/foo.test.js',
     options: [{ '*.js': '**/__tests__/' }],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: '__tests__/foo.test.js',
     options: [{ '*.js': '**/__tests__/' }],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'bar/__tests__/foo.test.js',
     options: [{ '*.js': '**/__tests__/' }],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: '/bar/__tests__/foo.test.js',
     options: [{ '*.js': '**/__tests__/' }],
   },
@@ -27,7 +27,7 @@ const valids = [
 
 const invalids = [
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: '/bar/__test__/foo.test.js',
     options: [{ '*.js': '**/__tests__/' }],
     errors: [

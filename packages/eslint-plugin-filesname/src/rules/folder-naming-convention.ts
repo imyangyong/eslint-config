@@ -1,24 +1,24 @@
 /**
  * The folder should follow the folder naming convention
  */
-import { createEslintRule } from '../utils/eslint'
 import micromatch from 'micromatch'
+import { createEslintRule } from '../utils/eslint'
 import {
-  getFolderPath,
-  getSubPaths,
   getAllFolders,
   getFilePath,
-} from '../utils/filename';
+  getFolderPath,
+  getSubPaths,
+} from '../utils/filename'
 import {
-  validateNamingPatternObject,
-  namingPatternValidator,
   globPatternValidator,
-} from '../utils/validation';
-import { isNotEmpty } from '../utils/utility';
-import NAMING_CONVENTION from '../constants/naming-convention';
+  namingPatternValidator,
+  validateNamingPatternObject,
+} from '../utils/validation'
+import { isNotEmpty } from '../utils/utility'
+import NAMING_CONVENTION from '../constants/naming-convention'
 import {
   FOLDER_NAMING_CONVENTION_ERROR_MESSAGE,
-} from '../constants/message';
+} from '../constants/message'
 
 export const RULE_NAME = 'folder-naming-convention'
 export type MessageIds = ''
@@ -40,51 +40,52 @@ export default createEslintRule<Options, MessageIds>({
       },
     ],
     messages: {
-      '': ''
+      '': '',
     },
   },
   defaultOptions: [
-    {}
+    {},
   ],
   create(context) {
     return {
       Program: (node) => {
-        const rules = context.options[0];
+        const rules = context.options[0]
         const message = validateNamingPatternObject(
           rules,
           globPatternValidator,
-          namingPatternValidator
-        );
+          namingPatternValidator,
+        )
 
         if (message) {
           context.report({
             node,
             // @ts-expect-error message way instead of messageId
             message,
-          });
-          return;
+          })
+          return
         }
 
-        const filenameWithPath = getFilePath(context);
-        const folderPath = getFolderPath(filenameWithPath);
-        const subPaths = getSubPaths(folderPath);
+        const filenameWithPath = getFilePath(context)
+        const folderPath = getFolderPath(filenameWithPath)
+        const subPaths = getSubPaths(folderPath)
 
         for (const path of subPaths) {
           for (const [folderPattern, namingPattern] of Object.entries(rules)) {
             if (!micromatch.isMatch(path, folderPattern)) {
-              continue;
-            } else {
-              const matchedPaths =
-                micromatch.capture(folderPattern, path) || [];
+              continue
+            }
+            else {
+              const matchedPaths
+                = micromatch.capture(folderPattern, path) || []
               const folders = matchedPaths
                 .filter(isNotEmpty)
-                .reduce((s, p) => s.concat(getAllFolders(p)), []);
+                .reduce((s, p) => s.concat(getAllFolders(p)), [])
 
               for (const folder of folders) {
                 if (
                   !micromatch.isMatch(
                     folder,
-                    NAMING_CONVENTION[namingPattern] || namingPattern
+                    NAMING_CONVENTION[namingPattern] || namingPattern,
                   )
                 ) {
                   context.report({
@@ -92,16 +93,16 @@ export default createEslintRule<Options, MessageIds>({
                     // @ts-expect-error message way instead of messageId
                     message: FOLDER_NAMING_CONVENTION_ERROR_MESSAGE(
                       folder,
-                      namingPattern
+                      namingPattern,
                     ),
-                  });
-                  return;
+                  })
+                  return
                 }
               }
             }
           }
         }
       },
-    };
+    }
   },
 })

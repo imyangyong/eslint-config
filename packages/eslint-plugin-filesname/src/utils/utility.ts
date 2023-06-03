@@ -2,7 +2,7 @@
  * A utility file containing useful functions
  */
 
-import { TEMPLATE_VARIABLE_REGEXP } from '../constants/regex';
+import { TEMPLATE_VARIABLE_REGEXP } from '../constants/regex'
 
 /**
  * Checks if the given argument is an object
@@ -10,7 +10,7 @@ import { TEMPLATE_VARIABLE_REGEXP } from '../constants/regex';
  * @param {any} x - The argument to check
  * @returns {boolean} - True if the argument is an object, false otherwise
  */
-const isObject = (x) => Object.prototype.toString.call(x) === '[object Object]';
+const isObject = x => Object.prototype.toString.call(x) === '[object Object]'
 
 /**
  * Checks if the given argument is an array
@@ -18,10 +18,11 @@ const isObject = (x) => Object.prototype.toString.call(x) === '[object Object]';
  * @param {any} x - The argument to check
  * @returns {boolean} - True if the argument is an array, false otherwise
  */
-const isArray = (x) =>
-  x != null &&
-  x.length >= 0 &&
-  Object.prototype.toString.call(x) === '[object Array]';
+function isArray(x) {
+  return x != null
+  && x.length >= 0
+  && Object.prototype.toString.call(x) === '[object Array]'
+}
 
 /**
  * Checks if a value is undefined or null
@@ -29,7 +30,7 @@ const isArray = (x) =>
  * @param {any} x - The value to check
  * @returns {boolean} - Returns true if the value is undefined or null, false otherwise
  */
-const isNil = (x) => x === undefined || x === null;
+const isNil = x => x === undefined || x === null
 
 /**
  * Checks if a value is an empty value
@@ -37,10 +38,11 @@ const isNil = (x) => x === undefined || x === null;
  * @param {any} x - The value to check
  * @returns {boolean} - Returns true if the value is an empty value, false otherwise
  */
-const isEmpty = (x) =>
-  x === '' ||
-  (isArray(x) && x.length === 0) ||
-  (isObject(x) && Object.keys(x).length === 0);
+function isEmpty(x) {
+  return x === ''
+  || (isArray(x) && x.length === 0)
+  || (isObject(x) && Object.keys(x).length === 0)
+}
 
 /**
  * Negates a boolean value
@@ -48,7 +50,7 @@ const isEmpty = (x) =>
  * @param {boolean} x - The boolean value to negate
  * @returns {boolean} The negated boolean value
  */
-const not = (x) => !x;
+const not = x => !x
 
 /**
  * Callback for file path
@@ -60,10 +62,10 @@ const not = (x) => !x;
  * @returns {callback} piped function
  * @param {callback[]} fns callback functions
  */
-const pipe =
-  (...fns) =>
-    (x) =>
-      fns.reduce((v, f) => f(v), x);
+function pipe(...fns) {
+  return x =>
+    fns.reduce((v, f) => f(v), x)
+}
 
 /**
  * Checks if a value isn't an empty value
@@ -71,7 +73,7 @@ const pipe =
  * @param {any} x - The value to check
  * @returns {boolean} - Returns true if the value isn't an empty value, false otherwise
  */
-const isNotEmpty = pipe(isEmpty, not);
+const isNotEmpty = pipe(isEmpty, not)
 
 /**
  * Template function with the specified template
@@ -86,13 +88,13 @@ const isNotEmpty = pipe(isEmpty, not);
  * @param {string} tpl - The template string to be replaced
  * @returns {templateFunction} - A function that takes in data and replaces the template variables with the corresponding values from the data object
  */
-const template =
-  (tpl) =>
-    (...data) =>
-      tpl.replace(
-        new RegExp(TEMPLATE_VARIABLE_REGEXP, 'g'),
-        (_, key) => data[key.trim()]
-      );
+function template(tpl) {
+  return (...data) =>
+    tpl.replace(
+      new RegExp(TEMPLATE_VARIABLE_REGEXP, 'g'),
+      (_, key) => data[key.trim()],
+    )
+}
 
 export {
   isObject,
@@ -101,4 +103,4 @@ export {
   isNotEmpty,
   pipe,
   template,
-};
+}

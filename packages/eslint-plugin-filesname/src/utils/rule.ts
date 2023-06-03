@@ -2,13 +2,13 @@
  * @file Utils about rule
  * @author David Ratier, Duke Luo
  */
-'use strict';
+'use strict'
 
-import micromatch from 'micromatch';
-import { isNil, isEmpty } from './utility';
-import { PREFINED_MATCH_SYNTAX_REGEXP } from '../constants/regex';
-import { PREFINED_MATCH_SYNTAX_ERROR_MESSAGE } from '../constants/message';
-import NAMING_CONVENTION from '../constants/naming-convention';
+import micromatch from 'micromatch'
+import { PREFINED_MATCH_SYNTAX_REGEXP } from '../constants/regex'
+import { PREFINED_MATCH_SYNTAX_ERROR_MESSAGE } from '../constants/message'
+import NAMING_CONVENTION from '../constants/naming-convention'
+import { isEmpty, isNil } from './utility'
 
 /**
  * Takes in a rule and transforms it if it contains prefined match syntax
@@ -21,41 +21,37 @@ import NAMING_CONVENTION from '../constants/naming-convention';
  * @returns {rule} new rule
  * @throws {Error} if a prefined match syntax referenced in the naming pattern is not found in the filename pattern
  */
-const transformRuleWithPrefinedMatchSyntax = (
-  [filenamePattern, namingPattern],
-  filenameWithPath
-) => {
+function transformRuleWithPrefinedMatchSyntax([filenamePattern, namingPattern],
+  filenameWithPath) {
   const keyCaptureGroups = micromatch.capture(
     filenamePattern,
-    filenameWithPath
-  );
+    filenameWithPath,
+  )
 
-  if (isNil(keyCaptureGroups)) {
-    return [filenamePattern, namingPattern];
-  }
+  if (isNil(keyCaptureGroups))
+    return [filenamePattern, namingPattern]
 
   const valueCaptureGroups = [
     ...namingPattern.matchAll(new RegExp(PREFINED_MATCH_SYNTAX_REGEXP, 'g')),
-  ];
+  ]
 
-  if (isEmpty(valueCaptureGroups)) {
-    return [filenamePattern, namingPattern];
-  }
+  if (isEmpty(valueCaptureGroups))
+    return [filenamePattern, namingPattern]
 
   const newNamingPattern = valueCaptureGroups.reduce((value, group) => {
-    const groupIndex = +group[1];
+    const groupIndex = +group[1]
 
     if (isNil(keyCaptureGroups[groupIndex])) {
       throw new Error(
-        PREFINED_MATCH_SYNTAX_ERROR_MESSAGE(namingPattern, filenamePattern)
-      );
+        PREFINED_MATCH_SYNTAX_ERROR_MESSAGE(namingPattern, filenamePattern),
+      )
     }
 
-    return value.replace(group[0], keyCaptureGroups[groupIndex]);
-  }, namingPattern);
+    return value.replace(group[0], keyCaptureGroups[groupIndex])
+  }, namingPattern)
 
-  return [filenamePattern, newNamingPattern];
-};
+  return [filenamePattern, newNamingPattern]
+}
 
 /**
  * @returns {object | undefined} undefined or object with non-matching file path and naming pattern
@@ -64,32 +60,30 @@ const transformRuleWithPrefinedMatchSyntax = (
  * @param {string} [targetNaming] target naming
  * @param {string} [targetNamingPattern] naming pattern of the target naming
  */
-const matchRule = (
-  filePath,
+function matchRule(filePath,
   targetFilePathPattern,
   targetNaming = null,
-  targetNamingPattern = null
-) => {
-  if (!micromatch.isMatch(filePath, targetFilePathPattern)) {
-    return;
-  } else if (
-    targetNaming &&
-    targetNamingPattern &&
-    micromatch.isMatch(
+  targetNamingPattern = null) {
+  // eslint-disable-next-line no-empty
+  if (!micromatch.isMatch(filePath, targetFilePathPattern)) {}
+  else if (
+    targetNaming
+    && targetNamingPattern
+    && micromatch.isMatch(
       targetNaming,
-      NAMING_CONVENTION[targetNamingPattern] || targetNamingPattern
+      NAMING_CONVENTION[targetNamingPattern] || targetNamingPattern,
     )
-  ) {
-    return;
-  } else {
+  // eslint-disable-next-line no-empty
+  ) {}
+  else {
     return {
       path: filePath,
       pattern: targetNamingPattern,
-    };
+    }
   }
-};
+}
 
 export {
   transformRuleWithPrefinedMatchSyntax,
   matchRule,
-};
+}

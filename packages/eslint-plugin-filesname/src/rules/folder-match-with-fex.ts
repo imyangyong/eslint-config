@@ -3,18 +3,18 @@
  */
 import { createEslintRule } from '../utils/eslint'
 import {
-  getFolderPath,
-  getFilename,
   getFilePath,
-} from '../utils/filename';
+  getFilename,
+  getFolderPath,
+} from '../utils/filename'
 import {
-  validateNamingPatternObject,
   globPatternValidator,
-} from '../utils/validation';
-import { matchRule } from '../utils/rule';
+  validateNamingPatternObject,
+} from '../utils/validation'
+import { matchRule } from '../utils/rule'
 import {
   FOLDER_MATCH_WITH_FEX_ERROR_MESSAGE,
-} from '../constants/message';
+} from '../constants/message'
 
 export const RULE_NAME = 'folder-match-with-fex'
 export type MessageIds = ''
@@ -36,42 +36,42 @@ export default createEslintRule<Options, MessageIds>({
       },
     ],
     messages: {
-      '': ''
+      '': '',
     },
   },
   defaultOptions: [
-    {}
+    {},
   ],
   create(context) {
     return {
       Program: (node) => {
-        const rules = context.options[0];
+        const rules = context.options[0]
         const message = validateNamingPatternObject(
           rules,
           globPatternValidator,
-          globPatternValidator
-        );
+          globPatternValidator,
+        )
 
         if (message) {
           context.report({
             node,
             // @ts-expect-error message way instead of messageId
             message,
-          });
-          return;
+          })
+          return
         }
 
-        const filenameWithPath = getFilePath(context);
-        const filename = getFilename(filenameWithPath);
-        const folderPath = getFolderPath(filenameWithPath);
+        const filenameWithPath = getFilePath(context)
+        const filename = getFilename(filenameWithPath)
+        const folderPath = getFolderPath(filenameWithPath)
 
         for (const [fexPattern, folderPattern] of Object.entries(rules)) {
           const matchResult = matchRule(
             filename,
             fexPattern,
             folderPath,
-            folderPattern
-          );
+            folderPattern,
+          )
 
           if (matchResult) {
             context.report({
@@ -79,13 +79,13 @@ export default createEslintRule<Options, MessageIds>({
               // @ts-expect-error message way instead of messageId
               message: FOLDER_MATCH_WITH_FEX_ERROR_MESSAGE(
                 filenameWithPath,
-                folderPattern
+                folderPattern,
               ),
-            });
-            return;
+            })
+            return
           }
         }
       },
-    };
+    }
   },
 })

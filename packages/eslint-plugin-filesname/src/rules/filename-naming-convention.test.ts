@@ -1,40 +1,40 @@
 import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { it } from 'vitest'
-import rule, { RULE_NAME, type MessageIds, type Options } from './filename-naming-convention'
+import rule, { type MessageIds, type Options, RULE_NAME } from './filename-naming-convention'
 
 const valids = [
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/components/login.jsx',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/login.jsx',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'login.jsx',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/utils/calculatePrice.js',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/calculatePrice.js',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'calculatePrice.js',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/classes/g2tClass.js',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
   },
@@ -42,7 +42,7 @@ const valids = [
 
 const invalids = [
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/utils/CalculatePrice.js',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
     errors: [
@@ -55,7 +55,7 @@ const invalids = [
     ],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/utils/calculate_price.js',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
     errors: [
@@ -68,7 +68,7 @@ const invalids = [
     ],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/utils/calculate-price.js',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
     errors: [
@@ -81,7 +81,7 @@ const invalids = [
     ],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/utils/CALCULATE_PRICE.js',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
     errors: [
@@ -94,7 +94,7 @@ const invalids = [
     ],
   },
   {
-    code: "var foo = 'bar';",
+    code: 'var foo = \'bar\';',
     filename: 'src/classes/2gtClass.js',
     options: [{ '**/*.js': 'CAMEL_CASE', '**/*.jsx': 'CAMEL_CASE' }],
     errors: [

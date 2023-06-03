@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "@imyangyong/eslint-config-vue": "workspace:*",
-    "eslint-plugin-filesname": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
     "@typescript-eslint/parser": "^5.59.7",
     "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-filesname": "workspace:*",
     "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsonc": "^2.8.0",

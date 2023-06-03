@@ -64,7 +64,7 @@ module.exports = {
       'mocks/*/': 'KEBAB_CASE',
     }],
   },
-};
+}
 ```
 
 ## Further Reading

@@ -51,7 +51,7 @@ module.exports = {
       '**/*.util.ts': '*.utils.ts',
     }],
   },
-};
+}
 ```
 
 ## Further Reading

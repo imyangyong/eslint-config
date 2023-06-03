@@ -2,99 +2,101 @@
  * Utils about filename
  */
 
-import path from 'node:path';
-import { pipe, isNotEmpty } from './utility'
-import { WINDOWS_DRIVE_LETTER_REGEXP } from '../constants/regex';
+import path from 'node:path'
+import { WINDOWS_DRIVE_LETTER_REGEXP } from '../constants/regex'
+import { isNotEmpty, pipe } from './utility'
 
 /**
  * @returns {string} filename without path
  * @param {string} p filename concat with path in posix style
  */
-const getFilename = (p) => path.posix.basename(p);
+const getFilename = p => path.posix.basename(p)
 
 /**
  * @returns {string} path of folder
  * @param {string} p filename concat with path in posix style
  */
-const getFolderPath = (p) =>
-  path.posix.join(path.posix.dirname(p), path.posix.sep);
+function getFolderPath(p) {
+  return path.posix.join(path.posix.dirname(p), path.posix.sep)
+}
 
 /**
  * @returns {string} base name
  * @param {string} filename filename without path
  * @param {boolean} [ignoreMiddleExtensions=false] flag to ignore middle extensions
  */
-const getBasename = (filename, ignoreMiddleExtensions = false) =>
-  filename.substring(
+function getBasename(filename, ignoreMiddleExtensions = false) {
+  return filename.substring(
     0,
-    ignoreMiddleExtensions ? filename.indexOf('.') : filename.lastIndexOf('.')
-  );
+    ignoreMiddleExtensions ? filename.indexOf('.') : filename.lastIndexOf('.'),
+  )
+}
 
 /**
  * @returns {string[]} all folders
  * @param {string} p path of folder in posix style
  */
-const getAllFolders = (p) => p.split(path.posix.sep).filter(isNotEmpty);
+const getAllFolders = p => p.split(path.posix.sep).filter(isNotEmpty)
 
 /**
  * @returns {string[]} all sub paths
  * @param {string} p path of folder in posix style
  */
-const getSubPaths = (p) => {
-  const folders = getAllFolders(p);
-  let subPaths = [];
+function getSubPaths(p) {
+  const folders = getAllFolders(p)
+  let subPaths = []
 
-  const handler = (array) =>
+  const handler = array =>
     array.reduce((acc, folder, index) => {
       if (folder) {
         acc.push(
           index === 0
             ? path.posix.join(folder, path.posix.sep)
-            : path.posix.join(acc[acc.length - 1], folder, path.posix.sep)
-        );
+            : path.posix.join(acc[acc.length - 1], folder, path.posix.sep),
+        )
       }
-      return acc;
-    }, []);
+      return acc
+    }, [])
 
-  for (let i = 0; i < folders.length; i++) {
-    subPaths = subPaths.concat(handler(folders.slice(i)));
-  }
+  for (let i = 0; i < folders.length; i++)
+    subPaths = subPaths.concat(handler(folders.slice(i)))
 
-  return subPaths;
-};
+  return subPaths
+}
 
 /**
  * @returns {string} path from repository root
  * @param {string} fullPath filename with full path
  * @param {string} repositoryRoot path of repository root
  */
-const getPathFromRepositoryRoot = (fullPath, repositoryRoot) =>
-  fullPath.replace(path.join(repositoryRoot, path.sep), '');
+function getPathFromRepositoryRoot(fullPath, repositoryRoot) {
+  return fullPath.replace(path.join(repositoryRoot, path.sep), '')
+}
 
 /**
  * @returns {string} file path in posix style
  * @param {string} p file path based on the operating system
  */
-const toPosixPath = (p) => p.split(path.sep).join(path.posix.sep);
+const toPosixPath = p => p.split(path.sep).join(path.posix.sep)
 
 /**
  * @returns {string} file path without drive letter on windows
  * @param {string} p file path on windows
  */
-const removeDriveLetter = (p) => p.replace(WINDOWS_DRIVE_LETTER_REGEXP, '');
+const removeDriveLetter = p => p.replace(WINDOWS_DRIVE_LETTER_REGEXP, '')
 
 /**
  * @returns {string} file path in posix style
  * @param {import('eslint').Rule.RuleContext} context rule eslint context
  */
-const getFilePath = (context) => {
+function getFilePath(context) {
   const pathFromRoot = getPathFromRepositoryRoot(
     context.getPhysicalFilename(),
-    context.getCwd()
-  );
+    context.getCwd(),
+  )
 
-  return pipe(removeDriveLetter, toPosixPath)(pathFromRoot);
-};
+  return pipe(removeDriveLetter, toPosixPath)(pathFromRoot)
+}
 
 export {
   getFolderPath,
@@ -103,4 +105,4 @@ export {
   getSubPaths,
   getAllFolders,
   getFilePath,
-};
+}

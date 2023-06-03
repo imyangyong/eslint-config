@@ -40,7 +40,7 @@ module.exports = {
       '*.styled.{jsx,tsx}': '**/pages/',
     }],
   },
-};
+}
 ```
 
 ## Further Reading
