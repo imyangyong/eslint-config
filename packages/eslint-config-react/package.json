@@ -2,9 +2,9 @@
   "name": "@imyangyong/eslint-config-react",
   "version": "0.10.0",
   "description": "",
-  "keywords": [],
-  "license": "MIT",
   "author": "Angus Yang",
+  "license": "MIT",
+  "keywords": [],
   "main": "index.js",
   "files": [
     "index.js"

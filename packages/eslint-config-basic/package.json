@@ -2,9 +2,9 @@
   "name": "@imyangyong/eslint-config-basic",
   "version": "0.10.0",
   "description": "",
-  "keywords": [],
-  "license": "MIT",
   "author": "Angus Yang",
+  "license": "MIT",
+  "keywords": [],
   "main": "index.js",
   "files": [
     "*.js"
@@ -16,10 +16,10 @@
     "eslint": ">=7.4.0"
   },
   "dependencies": {
-    "eslint-plugin-imyangyong": "workspace:*",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-imyangyong": "workspace:*",
     "eslint-plugin-jsonc": "^2.8.0",
     "eslint-plugin-markdown": "^3.0.0",
     "eslint-plugin-n": "^16.0.0",

@@ -2,8 +2,8 @@
   "name": "@imyangyong/eslint-config",
   "version": "0.10.0",
   "description": "Angus's ESLint config",
-  "license": "MIT",
   "author": "Angus Yang",
+  "license": "MIT",
   "main": "index.js",
   "files": [
     "index.js"
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@imyangyong/eslint-config-vue": "workspace:*",
+    "eslint-plugin-filesname": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
     "@typescript-eslint/parser": "^5.59.7",
     "eslint-plugin-eslint-comments": "^3.2.0",
