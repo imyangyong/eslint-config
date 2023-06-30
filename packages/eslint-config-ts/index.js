@@ -72,8 +72,6 @@ module.exports = {
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     '@typescript-eslint/prefer-ts-expect-error': 'error',
     '@typescript-eslint/no-require-imports': 'error',
-    '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'as', objectLiteralTypeAssertions: 'allow-as-parameter' }],
-
     // Override JS
     'no-useless-constructor': 'off',
     'indent': 'off',
@@ -161,6 +159,7 @@ module.exports = {
     'imyangyong/generic-spacing': 'error',
     'imyangyong/no-cjs-exports': 'error',
     'imyangyong/no-ts-export-equal': 'error',
+    'imyangyong/no-const-enum': 'error',
 
     // off
     '@typescript-eslint/consistent-indexed-object-style': 'off',
