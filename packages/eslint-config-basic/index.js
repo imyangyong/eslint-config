@@ -204,6 +204,7 @@ module.exports = {
         'no-unused-vars': 'off',
         'antfu/no-cjs-exports': 'off',
         'antfu/no-ts-export-equal': 'off',
+        'n/prefer-global/process': 'off',
       },
     },
   ],
@@ -215,6 +216,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/no-absolute-path': 'off',
     'import/newline-after-import': ['error', { count: 1, considerComments: true }],
+    'import/no-self-import': 'error',
 
     // Common
     'semi': ['error', 'never'],
@@ -337,7 +339,7 @@ module.exports = {
     'max-statements-per-line': ['error', { max: 1 }],
 
     // node
-    // 'n/prefer-global/process': ['error', 'never'], // Not sure if we need it as we are using `process.env.NODE_ENV` a lot in front-end.
+    'n/prefer-global/process': ['error', 'never'],
     'n/prefer-global/buffer': ['error', 'never'],
     'n/no-callback-literal': 'off',
 
@@ -368,6 +370,8 @@ module.exports = {
     'unicorn/prefer-node-protocol': 'error',
     // Prefer using number properties like `Number.isNaN` rather than `isNaN`
     'unicorn/prefer-number-properties': 'error',
+    // Ban `new Array` as `Array` constructor's params are ambiguous
+    'unicorn/no-new-array': 'error',
 
     'no-use-before-define': ['error', { functions: false, classes: false, variables: true }],
     'eslint-comments/disable-enable-pair': 'off',

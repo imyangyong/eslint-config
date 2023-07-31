@@ -55,25 +55,25 @@ Add the following settings to your `settings.json`:
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
-    "source.organizeImports": false,
+    "source.organizeImports": false
+  },
 
-    // The following is optional.
-    // It's better to put under project setting `.vscode/settings.json`
-    // to avoid conflicts with working with different eslint configs
-    // that does not support all formats.
-    "eslint.validate": [
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-      "vue",
-      "html",
-      "markdown",
-      "json",
-      "jsonc",
-      "yaml"
-    ]
-  }
+  // The following is optional.
+  // It's better to put under project setting `.vscode/settings.json`
+  // to avoid conflicts with working with different eslint configs
+  // that does not support all formats.
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml"
+  ]
 }
 ```
 
@@ -83,6 +83,7 @@ Type aware rules are enabled when a `tsconfig.eslint.json` is found in the proje
 
 ```js
 // .eslintrc.js
+const process = require('node:process')
 process.env.ESLINT_TSCONFIG = 'tsconfig.json'
 
 module.exports = {
@@ -110,6 +111,16 @@ and then
 ```bash
 npm i -D lint-staged simple-git-hooks
 ```
+
+## Badge
+
+If you enjoy this code style, and would like to mention it in your project, here is the badge you can use:
+
+```md
+[![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
+```
+
+[![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
 
 ## FAQ
 
