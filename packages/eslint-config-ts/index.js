@@ -160,6 +160,7 @@ module.exports = {
     'imyangyong/no-cjs-exports': 'error',
     'imyangyong/no-ts-export-equal': 'error',
     'imyangyong/no-const-enum': 'error',
+    'imyangyong/named-tuple-spacing': 'error',
 
     // off
     '@typescript-eslint/consistent-indexed-object-style': 'off',

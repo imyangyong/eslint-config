@@ -1,3 +1,7 @@
+// eslint-disable-next-line n/prefer-global/process
+const isInEditor = (process.env.VSCODE_PID || process.env.JETBRAINS_IDE) && !process.env.CI
+const offInEditor = isInEditor ? 'off' : 'error'
+
 module.exports = {
   env: {
     es6: true,
@@ -43,7 +47,7 @@ module.exports = {
     '!.vitepress',
     '!.vscode',
     // force exclude
-    '.vitepress/cache',
+    '**/.vitepress/cache',
   ],
   plugins: [
     'html',
@@ -139,11 +143,20 @@ module.exports = {
             order: { type: 'asc' },
           },
           {
+            pathPattern: '^resolutions$',
+            order: { type: 'asc' },
+          },
+          {
+            pathPattern: '^pnpm.overrides$',
+            order: { type: 'asc' },
+          },
+          {
             pathPattern: '^exports.*$',
             order: [
               'types',
-              'require',
               'import',
+              'require',
+              'default',
             ],
           },
         ],
@@ -224,7 +237,7 @@ module.exports = {
     'quotes': ['error', 'single'],
     'quote-props': ['error', 'consistent-as-needed'],
 
-    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-imports': offInEditor,
     'unused-imports/no-unused-vars': [
       'warn',
       { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
@@ -395,6 +408,7 @@ module.exports = {
     'yml/no-empty-document': 'off',
 
     // imyangyong
+    'imyangyong/no-import-node-modules-by-path': 'error',
     'imyangyong/if-newline': 'error',
     'imyangyong/import-dedupe': 'error',
     'imyangyong/top-level-function': 'error',
