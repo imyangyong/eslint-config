@@ -16,6 +16,7 @@ module.exports = {
     'plugin:jsonc/recommended-with-jsonc',
     'plugin:yml/standard',
     'plugin:markdown/recommended',
+    'plugin:jsdoc/recommended',
   ],
   ignorePatterns: [
     '*.min.*',
@@ -55,6 +56,7 @@ module.exports = {
     'imyangyong',
     'no-only-tests',
     'unused-imports',
+    'jsdoc',
   ],
   settings: {
     'import/resolver': {
@@ -179,6 +181,7 @@ module.exports = {
       files: ['*.ts', '*.tsx', '*.mts', '*.cts'],
       rules: {
         'no-void': ['error', { allowAsStatement: true }],
+        'dot-notation': 'off',
       },
     },
     {
@@ -215,8 +218,8 @@ module.exports = {
         'no-undef': 'off',
         'no-unused-expressions': 'off',
         'no-unused-vars': 'off',
-        'antfu/no-cjs-exports': 'off',
-        'antfu/no-ts-export-equal': 'off',
+        'imyangyong/no-cjs-exports': 'off',
+        'imyangyong/no-ts-export-equal': 'off',
         'n/prefer-global/process': 'off',
       },
     },
@@ -407,11 +410,22 @@ module.exports = {
     'yml/quotes': ['error', { prefer: 'single', avoidEscape: false }],
     'yml/no-empty-document': 'off',
 
+    // jsdoc
+    'jsdoc/require-jsdoc': 'off',
+    'jsdoc/require-param-type': 'off',
+    'jsdoc/require-param-description': 'off',
+    'jsdoc/require-yields': 'off',
+    'jsdoc/tag-lines': 'off',
+    'jsdoc/check-values': 'off',
+    'jsdoc/check-tag-names': 'off',
+    'jsdoc/no-undefined-types': 'off',
+    'jsdoc/require-returns': 'off',
+    'jsdoc/require-returns-type': 'off',
+
     // imyangyong
     'imyangyong/no-import-node-modules-by-path': 'error',
     'imyangyong/if-newline': 'error',
     'imyangyong/import-dedupe': 'error',
     'imyangyong/top-level-function': 'error',
-    // 'imyangyong/prefer-inline-type-import': 'error',
   },
 }
