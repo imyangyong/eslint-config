@@ -1,5 +1,4 @@
-import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
-import { it } from 'vitest'
+import { RuleTester } from '@typescript-eslint/rule-tester'
 import rule, { type MessageIds, type Options, RULE_NAME } from './folder-naming-convention'
 
 const valids = [
@@ -39,14 +38,12 @@ const invalids = [
   },
 ] as const
 
-it('runs', () => {
-  const ruleTester: RuleTester = new RuleTester({
-    parser: require.resolve('@typescript-eslint/parser'),
-  })
+const ruleTester: RuleTester = new RuleTester({
+  parser: require.resolve('@typescript-eslint/parser'),
+})
 
-  ruleTester.run<MessageIds, Options>(RULE_NAME, rule, {
-    valid: valids,
-    // @ts-expect-error message way instead of messageId
-    invalid: invalids,
-  })
+ruleTester.run<MessageIds, Options>(RULE_NAME, rule as any, {
+  valid: valids,
+  // @ts-expect-error message way instead of messageId
+  invalid: invalids,
 })
