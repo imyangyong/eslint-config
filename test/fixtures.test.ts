@@ -34,9 +34,9 @@ function runWithConfig(name: string, configs: OptionsConfig) {
     })
     await fs.writeFile(join(target, 'eslint.config.js'), `
 // @eslint-disable
-import antfu from '@antfu/eslint-config'
+import antfu from '@imyangyong/eslint-config'
 
-export default antfu(${JSON.stringify(configs)})
+export default imyangyong(${JSON.stringify(configs)})
   `)
 
     await execa('npx', ['eslint', '.', '--fix'], {

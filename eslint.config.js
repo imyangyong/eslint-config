@@ -1,8 +1,8 @@
 import stylisticMigrate from '@stylistic/eslint-plugin-migrate'
 import sortKeys from 'eslint-plugin-sort-keys'
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu(
+export default imyangyong(
   {
     ignores: [
       'fixtures',

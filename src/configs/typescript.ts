@@ -1,7 +1,7 @@
 import process from 'node:process'
 import type { FlatESLintConfigItem } from 'eslint-define-config'
 import { GLOB_TS, GLOB_TSX } from '../globs'
-import { parserTs, pluginAntfu, pluginImport, pluginTs } from '../plugins'
+import { parserTs, pluginImyangyong, pluginImport, pluginTs } from '../plugins'
 import { OFF } from '../flags'
 import type { OptionsComponentExts, OptionsTypeScriptWithLanguageServer } from '../types'
 import { renameRules } from '../utils'
@@ -25,7 +25,7 @@ export function typescript(options?: OptionsComponentExts): FlatESLintConfigItem
         },
       },
       plugins: {
-        antfu: pluginAntfu,
+        imyangyong: pluginImyangyong,
         import: pluginImport,
         ts: pluginTs as any,
       },
@@ -41,11 +41,11 @@ export function typescript(options?: OptionsComponentExts): FlatESLintConfigItem
           'ts/',
         ),
 
-        'antfu/generic-spacing': 'error',
-        'antfu/named-tuple-spacing': 'error',
-        'antfu/no-cjs-exports': 'error',
-        'antfu/no-const-enum': 'error',
-        'antfu/no-ts-export-equal': 'error',
+        'imyangyong/generic-spacing': 'error',
+        'imyangyong/named-tuple-spacing': 'error',
+        'imyangyong/no-cjs-exports': 'error',
+        'imyangyong/no-const-enum': 'error',
+        'imyangyong/no-ts-export-equal': 'error',
 
         'no-dupe-class-members': OFF,
         'no-extra-parens': OFF,
