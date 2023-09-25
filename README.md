@@ -5,12 +5,13 @@
 - Single quotes, no semi
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
 - Designed to work with TypeScript, Vue out-of-box
-- Lint also for json, yaml, markdown
+- Lints also for json, yaml, markdown
 - Sorted imports, dangling commas
 - Reasonable defaults, best practices, only one-line of config
+- Respects `.gitignore` by default
 - [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
 - Using [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
-- **Style principle**: Minimal for reading, stable for diff
+- **Style principle**: Minimal for reading, stable for diff, consistent
 
 > [!IMPORTANT]
 > The main branch is for v1.0-beta, which rewrites to ESLint Flat config, check [#250](https://github.com/antfu/eslint-config/pull/250) for more details.
@@ -207,8 +208,7 @@ Since flat config requires us to explicitly provide the plugin names (instead of
 | `i/*` | `import/*` | [eslint-plugin-i](https://github.com/un-es/eslint-plugin-i) |
 | `n/*` | `node/*` | [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n)
 | `@typescript-eslint/*` | `ts/*` | [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint) |
-| `@stylistic/js/*` | `style/*` | [@stylistic/eslint-plugin-js](https://github.com/eslint-stylistic/eslint-stylistic) |
-| `@stylistic/ts/*` | `style-ts/*` | [@stylistic/eslint-plugin-ts](https://github.com/eslint-stylistic/eslint-stylistic) |
+| `@stylistic/*` | `style/*` | [@stylistic/eslint-plugin](https://github.com/eslint-stylistic/eslint-stylistic) |
 
 When you want to overrides rules, or disable them inline, you need to update to the new prefix:
 

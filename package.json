@@ -9,13 +9,20 @@
   "keywords": [
     "eslint-config"
   ],
-  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --clean --dts",
-    "stub": "tsup src/index.ts --format esm --clean",
+    "build": "tsup src/index.ts --format esm,cjs --clean --dts",
+    "stub": "tsup src/index.ts --format esm",
     "lint": "pnpm run stub && eslint .",
     "prepack": "nr build",
     "release": "bumpp && pnpm publish",
@@ -27,11 +34,10 @@
     "eslint": ">=8.0.0"
   },
   "dependencies": {
-    "@eslint-stylistic/metadata": "0.0.4",
-    "@stylistic/eslint-plugin-js": "0.0.4",
-    "@stylistic/eslint-plugin-ts": "0.0.4",
+    "@stylistic/eslint-plugin": "0.0.5",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.7.2",
+    "eslint-config-flat-gitignore": "^0.1.0",
     "eslint-define-config": "^1.23.0",
     "eslint-plugin-antfu": "^1.0.0-beta.6",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -54,9 +60,8 @@
   "devDependencies": {
     "@imyangyong/eslint-config": "workspace:*",
     "@antfu/ni": "^0.21.8",
-    "@stylistic/eslint-plugin-migrate": "0.0.4",
     "@types/fs-extra": "^11.0.2",
-    "@types/node": "^20.6.3",
+    "@types/node": "^20.6.4",
     "bumpp": "^9.2.0",
     "eslint": "^8.50.0",
     "eslint-plugin-sort-keys": "^2.3.5",

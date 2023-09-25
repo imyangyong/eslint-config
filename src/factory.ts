@@ -1,21 +1,22 @@
 import process from 'node:process'
+import fs from 'node:fs'
 import type { FlatESLintConfigItem } from 'eslint-define-config'
 import { isPackageExists } from 'local-pkg'
+import gitignore from 'eslint-config-flat-gitignore'
 import {
   comments,
   ignores,
   imports,
   javascript,
-  javascriptStylistic,
   jsdoc,
   jsonc,
   markdown,
   node,
   sortPackageJson,
   sortTsconfig,
+  stylistic,
   test,
   typescript,
-  typescriptStylistic,
   typescriptWithLanguageServer,
   unicorn,
   vue,
@@ -43,8 +44,22 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
   const enableVue = options.vue ?? (isPackageExists('vue') || isPackageExists('nuxt') || isPackageExists('vitepress') || isPackageExists('@slidev/cli'))
   const enableTypeScript = options.typescript ?? (isPackageExists('typescript'))
   const enableStylistic = options.stylistic ?? true
+  const enableGitignore = options.gitignore ?? true
 
-  const configs = [
+  const configs: FlatESLintConfigItem[][] = []
+
+  if (enableGitignore) {
+    if (typeof enableGitignore !== 'boolean') {
+      configs.push([gitignore(enableGitignore)])
+    }
+    else {
+      if (fs.existsSync('.gitignore'))
+        configs.push([gitignore()])
+    }
+  }
+
+  // Base configs
+  configs.push(
     ignores,
     javascript({ isInEditor }),
     comments,
@@ -52,15 +67,13 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
     jsdoc,
     imports,
     unicorn,
-  ]
+  )
 
   // In the future we may support more component extensions like Svelte or so
   const componentExts: string[] = []
+
   if (enableVue)
     componentExts.push('vue')
-
-  if (enableStylistic)
-    configs.push(javascriptStylistic)
 
   if (enableTypeScript) {
     configs.push(typescript({ componentExts }))
@@ -71,10 +84,10 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
         componentExts,
       }))
     }
-
-    if (enableStylistic)
-      configs.push(typescriptStylistic)
   }
+
+  if (enableStylistic)
+    configs.push(stylistic)
 
   if (options.test ?? true)
     configs.push(test({ isInEditor }))
@@ -106,8 +119,13 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
   if (Object.keys(fusedConfig).length)
     configs.push([fusedConfig])
 
-  return combine(
+  const merged = combine(
     ...configs,
     ...userConfigs,
   )
+
+  // recordRulesStateConfigs(merged)
+  // warnUnnecessaryOffRules()
+
+  return merged
 }
