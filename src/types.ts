@@ -86,6 +86,13 @@ export interface OptionsConfig {
   stylistic?: boolean
 
   /**
+   * Enable filename check.
+   *
+   * @default true
+   */
+  filename?: boolean
+
+  /**
    * Control to disable some rules in editors.
    * @default auto-detect based on the process.env
    */

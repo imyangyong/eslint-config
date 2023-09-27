@@ -33,8 +33,8 @@ export function markdown(options: OptionsComponentExts = {}): FlatESLintConfigIt
         ts: pluginTs as any,
       },
       rules: {
-        'imyangyong/no-cjs-exports': OFF,
-        'imyangyong/no-ts-export-equal': OFF,
+        'antfu/no-cjs-exports': OFF,
+        'antfu/no-ts-export-equal': OFF,
 
         'eol-last': OFF,
         'no-alert': OFF,

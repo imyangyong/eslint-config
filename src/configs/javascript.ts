@@ -1,6 +1,6 @@
 import type { FlatESLintConfigItem } from 'eslint-define-config'
 import globals from 'globals'
-import { pluginImyangyong, pluginUnusedImports } from '../plugins'
+import { pluginAntfu, pluginUnusedImports } from '../plugins'
 import { OFF } from '../flags'
 import type { OptionsIsInEditor } from '../types'
 import { GLOB_SRC, GLOB_SRC_EXT } from '../globs'
@@ -28,15 +28,15 @@ export function javascript(options: OptionsIsInEditor = {}): FlatESLintConfigIte
         sourceType: 'module',
       },
       plugins: {
-        'imyangyong': pluginImyangyong,
+        'antfu': pluginAntfu,
         'unused-imports': pluginUnusedImports,
       },
       rules: {
         'accessor-pairs': ['error', { enforceForClassMembers: true, setWithoutGet: true }],
 
-        'imyangyong/import-dedupe': 'error',
-        'imyangyong/no-import-node-modules-by-path': 'error',
-        'imyangyong/top-level-function': 'error',
+        'antfu/import-dedupe': 'error',
+        'antfu/no-import-node-modules-by-path': 'error',
+        'antfu/top-level-function': 'error',
 
         'array-callback-return': 'error',
         'arrow-parens': ['error', 'as-needed', { requireForBlockBody: true }],

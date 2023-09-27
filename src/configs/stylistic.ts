@@ -7,8 +7,8 @@ export const stylistic: FlatESLintConfigItem[] = [
       style: pluginStylistic,
     },
     rules: {
-      'imyangyong/consistent-list-newline': 'error',
-      'imyangyong/if-newline': 'error',
+      'antfu/consistent-list-newline': 'error',
+      'antfu/if-newline': 'error',
 
       'curly': ['error', 'multi-or-nest', 'consistent'],
 

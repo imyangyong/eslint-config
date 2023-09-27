@@ -5,6 +5,7 @@ import { isPackageExists } from 'local-pkg'
 import gitignore from 'eslint-config-flat-gitignore'
 import {
   comments,
+  filename,
   ignores,
   imports,
   javascript,
@@ -45,6 +46,7 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
   const enableTypeScript = options.typescript ?? (isPackageExists('typescript'))
   const enableStylistic = options.stylistic ?? true
   const enableGitignore = options.gitignore ?? true
+  const enableFilename = options.filename ?? true
 
   const configs: FlatESLintConfigItem[][] = []
 
@@ -57,6 +59,9 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
         configs.push([gitignore()])
     }
   }
+
+  if (enableFilename)
+    configs.push(filename)
 
   // Base configs
   configs.push(
