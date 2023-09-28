@@ -129,5 +129,6 @@ export interface OptionsConfig {
     jsonc?: FlatESLintConfigItem['rules']
     markdown?: FlatESLintConfigItem['rules']
     yaml?: FlatESLintConfigItem['rules']
+    filename?: FlatESLintConfigItem['rules']
   }
 }

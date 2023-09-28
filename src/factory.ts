@@ -46,13 +46,14 @@ const VuePackages = [
 /**
  * Construct an array of ESLint flat config items.
  */
-export function antfu(options: OptionsConfig & FlatESLintConfigItem = {}, ...userConfigs: (FlatESLintConfigItem | FlatESLintConfigItem[])[]) {
+export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, ...userConfigs: (FlatESLintConfigItem | FlatESLintConfigItem[])[]) {
   const {
     isInEditor = !!((process.env.VSCODE_PID || process.env.JETBRAINS_IDE) && !process.env.CI),
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
     typescript: enableTypeScript = isPackageExists('typescript'),
     stylistic: enableStylistic = true,
     gitignore: enableGitignore = true,
+    filename: enableFilename = true,
     overrides = {},
   } = options
 
@@ -68,8 +69,11 @@ export function antfu(options: OptionsConfig & FlatESLintConfigItem = {}, ...use
     }
   }
 
-  if (enableFilename)
-    configs.push(filename)
+  if (enableFilename) {
+    configs.push(filename({
+      overrides: overrides.filename,
+    })
+  )
 
   // Base configs
   configs.push(
