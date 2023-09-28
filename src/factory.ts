@@ -18,10 +18,9 @@ import {
   stylistic,
   test,
   typescript,
-  typescriptWithLanguageServer,
   unicorn,
   vue,
-  yml,
+  yaml,
 } from './configs'
 import type { OptionsConfig } from './types'
 import { combine } from './utils'
@@ -37,16 +36,25 @@ const flatConfigProps: (keyof FlatESLintConfigItem)[] = [
   'settings',
 ]
 
+const VuePackages = [
+  'vue',
+  'nuxt',
+  'vitepress',
+  '@slidev/cli',
+]
+
 /**
  * Construct an array of ESLint flat config items.
  */
-export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, ...userConfigs: (FlatESLintConfigItem | FlatESLintConfigItem[])[]) {
-  const isInEditor = options.isInEditor ?? !!((process.env.VSCODE_PID || process.env.JETBRAINS_IDE) && !process.env.CI)
-  const enableVue = options.vue ?? (isPackageExists('vue') || isPackageExists('nuxt') || isPackageExists('vitepress') || isPackageExists('@slidev/cli'))
-  const enableTypeScript = options.typescript ?? (isPackageExists('typescript'))
-  const enableStylistic = options.stylistic ?? true
-  const enableGitignore = options.gitignore ?? true
-  const enableFilename = options.filename ?? true
+export function antfu(options: OptionsConfig & FlatESLintConfigItem = {}, ...userConfigs: (FlatESLintConfigItem | FlatESLintConfigItem[])[]) {
+  const {
+    isInEditor = !!((process.env.VSCODE_PID || process.env.JETBRAINS_IDE) && !process.env.CI),
+    vue: enableVue = VuePackages.some(i => isPackageExists(i)),
+    typescript: enableTypeScript = isPackageExists('typescript'),
+    stylistic: enableStylistic = true,
+    gitignore: enableGitignore = true,
+    overrides = {},
+  } = options
 
   const configs: FlatESLintConfigItem[][] = []
 
@@ -65,13 +73,20 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
 
   // Base configs
   configs.push(
-    ignores,
-    javascript({ isInEditor }),
-    comments,
-    node,
-    jsdoc,
-    imports,
-    unicorn,
+    ignores(),
+    javascript({
+      isInEditor,
+      overrides: overrides.javascript,
+    }),
+    comments(),
+    node(),
+    jsdoc({
+      stylistic: enableStylistic,
+    }),
+    imports({
+      stylistic: enableStylistic,
+    }),
+    unicorn(),
   )
 
   // In the future we may support more component extensions like Svelte or so
@@ -81,38 +96,57 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
     componentExts.push('vue')
 
   if (enableTypeScript) {
-    configs.push(typescript({ componentExts }))
-
-    if (typeof enableTypeScript !== 'boolean') {
-      configs.push(typescriptWithLanguageServer({
-        ...enableTypeScript,
-        componentExts,
-      }))
-    }
+    configs.push(typescript({
+      ...typeof enableTypeScript !== 'boolean'
+        ? enableTypeScript
+        : {},
+      componentExts,
+      overrides: overrides.typescript,
+    }))
   }
 
   if (enableStylistic)
-    configs.push(stylistic)
+    configs.push(stylistic())
 
-  if (options.test ?? true)
-    configs.push(test({ isInEditor }))
+  if (options.test ?? true) {
+    configs.push(test({
+      isInEditor,
+      overrides: overrides.test,
+    }))
+  }
 
-  if (enableVue)
-    configs.push(vue({ typescript: !!enableTypeScript }))
+  if (enableVue) {
+    configs.push(vue({
+      overrides: overrides.vue,
+      stylistic: enableStylistic,
+      typescript: !!enableTypeScript,
+    }))
+  }
 
   if (options.jsonc ?? true) {
     configs.push(
-      jsonc,
-      sortPackageJson,
-      sortTsconfig,
+      jsonc({
+        overrides: overrides.jsonc,
+        stylistic: enableStylistic,
+      }),
+      sortPackageJson(),
+      sortTsconfig(),
     )
   }
 
-  if (options.yaml ?? true)
-    configs.push(yml)
+  if (options.yaml ?? true) {
+    configs.push(yaml({
+      overrides: overrides.yaml,
+      stylistic: enableStylistic,
+    }))
+  }
 
-  if (options.markdown ?? true)
-    configs.push(markdown({ componentExts }))
+  if (options.markdown ?? true) {
+    configs.push(markdown({
+      componentExts,
+      overrides: overrides.markdown,
+    }))
+  }
 
   // User can optionally pass a flat config item to the first argument
   // We pick the known keys as ESLint would do schema validation

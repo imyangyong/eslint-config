@@ -2,10 +2,15 @@ import type { FlatESLintConfigItem } from 'eslint-define-config'
 import globals from 'globals'
 import { pluginAntfu, pluginUnusedImports } from '../plugins'
 import { OFF } from '../flags'
-import type { OptionsIsInEditor } from '../types'
+import type { OptionsIsInEditor, OptionsOverrides } from '../types'
 import { GLOB_SRC, GLOB_SRC_EXT } from '../globs'
 
-export function javascript(options: OptionsIsInEditor = {}): FlatESLintConfigItem[] {
+export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): FlatESLintConfigItem[] {
+  const {
+    isInEditor = false,
+    overrides = {},
+  } = options
+
   return [
     {
       languageOptions: {
@@ -34,8 +39,6 @@ export function javascript(options: OptionsIsInEditor = {}): FlatESLintConfigIte
       rules: {
         'accessor-pairs': ['error', { enforceForClassMembers: true, setWithoutGet: true }],
 
-        'antfu/import-dedupe': 'error',
-        'antfu/no-import-node-modules-by-path': 'error',
         'antfu/top-level-function': 'error',
 
         'array-callback-return': 'error',
@@ -211,7 +214,7 @@ export function javascript(options: OptionsIsInEditor = {}): FlatESLintConfigIte
         'symbol-description': 'error',
         'unicode-bom': ['error', 'never'],
 
-        'unused-imports/no-unused-imports': options.isInEditor ? OFF : 'error',
+        'unused-imports/no-unused-imports': isInEditor ? OFF : 'error',
         'unused-imports/no-unused-vars': [
           'error',
           { args: 'after-used', argsIgnorePattern: '^_', vars: 'all', varsIgnorePattern: '^_' },
@@ -222,6 +225,8 @@ export function javascript(options: OptionsIsInEditor = {}): FlatESLintConfigIte
         'vars-on-top': 'error',
         'wrap-iife': ['error', 'any', { functionPrototypeMethods: true }],
         'yoda': ['error', 'never'],
+
+        ...overrides,
       },
     },
     {
