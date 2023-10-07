@@ -11,7 +11,7 @@ export function stylistic(options: StylisticConfig = {}): FlatESLintConfigItem[]
     {
       name: 'imyangyong:stylistic',
       plugins: {
-        imyangyong: pluginAntfu,
+        antfu: pluginAntfu,
         style: pluginStylistic,
       },
       rules: {

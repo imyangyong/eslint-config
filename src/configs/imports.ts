@@ -10,8 +10,8 @@ export function imports(options: OptionsStylistic = {}): FlatESLintConfigItem[] 
     {
       name: 'imyangyong:imports',
       plugins: {
+        antfu: pluginAntfu,
         import: pluginImport,
-        imyangyong: pluginAntfu,
       },
       rules: {
         'antfu/import-dedupe': 'error',

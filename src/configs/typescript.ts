@@ -42,8 +42,8 @@ export function typescript(
       // Install the plugins without globs, so they can be configured separately.
       name: 'imyangyong:typescript:setup',
       plugins: {
+        antfu: pluginAntfu,
         import: pluginImport,
-        imyangyong: pluginAntfu,
         ts: pluginTs as any,
       },
     },
