@@ -26,7 +26,7 @@
     "dev": "tsup src/index.ts --format esm,cjs --watch & eslint-flat-config-viewer",
     "lint": "pnpm run stub && eslint .",
     "prepack": "nr build",
-    "release": "bumpp && pnpm publish",
+    "release": "bumpp",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
