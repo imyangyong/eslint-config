@@ -1,4 +1,4 @@
-import type { FlatESLintConfigItem } from 'eslint-define-config'
+import type { FlatESLintConfigItem } from '../types'
 
 /**
  * Sort package.json
@@ -9,6 +9,7 @@ export function sortPackageJson(): FlatESLintConfigItem[] {
   return [
     {
       files: ['**/package.json'],
+      name: 'imyangyong:sort-package-json',
       rules: {
         'jsonc/sort-array-values': [
           'error',
@@ -103,6 +104,7 @@ export function sortTsconfig(): FlatESLintConfigItem[] {
   return [
     {
       files: ['**/tsconfig.json', '**/tsconfig.*.json'],
+      name: 'imyangyong:sort-tsconfig',
       rules: {
         'jsonc/sort-keys': [
           'error',
@@ -119,7 +121,7 @@ export function sortTsconfig(): FlatESLintConfigItem[] {
           },
           {
             order: [
-            /* Projects */
+              /* Projects */
               'incremental',
               'composite',
               'tsBuildInfoFile',
@@ -128,70 +130,39 @@ export function sortTsconfig(): FlatESLintConfigItem[] {
               'disableReferencedProjectLoad',
               /* Language and Environment */
               'target',
-              'lib',
               'jsx',
-              'experimentalDecorators',
-              'emitDecoratorMetadata',
               'jsxFactory',
               'jsxFragmentFactory',
               'jsxImportSource',
-              'reactNamespace',
-              'noLib',
-              'useDefineForClassFields',
+              'lib',
               'moduleDetection',
+              'noLib',
+              'reactNamespace',
+              'useDefineForClassFields',
+              'emitDecoratorMetadata',
+              'experimentalDecorators',
               /* Modules */
-              'module',
-              'rootDir',
-              'moduleResolution',
               'baseUrl',
-              'paths',
+              'rootDir',
               'rootDirs',
-              'typeRoots',
-              'types',
-              'allowUmdGlobalAccess',
+              'customConditions',
+              'module',
+              'moduleResolution',
               'moduleSuffixes',
-              'allowImportingTsExtensions',
+              'noResolve',
+              'paths',
+              'resolveJsonModule',
               'resolvePackageJsonExports',
               'resolvePackageJsonImports',
-              'customConditions',
-              'resolveJsonModule',
+              'typeRoots',
+              'types',
               'allowArbitraryExtensions',
-              'noResolve',
+              'allowImportingTsExtensions',
+              'allowUmdGlobalAccess',
               /* JavaScript Support */
               'allowJs',
               'checkJs',
               'maxNodeModuleJsDepth',
-              /* Emit */
-              'declaration',
-              'declarationMap',
-              'emitDeclarationOnly',
-              'sourceMap',
-              'inlineSourceMap',
-              'outFile',
-              'outDir',
-              'removeComments',
-              'noEmit',
-              'importHelpers',
-              'importsNotUsedAsValues',
-              'downlevelIteration',
-              'sourceRoot',
-              'mapRoot',
-              'inlineSources',
-              'emitBOM',
-              'newLine',
-              'stripInternal',
-              'noEmitHelpers',
-              'noEmitOnError',
-              'preserveConstEnums',
-              'declarationDir',
-              'preserveValueImports',
-              /* Interop Constraints */
-              'isolatedModules',
-              'verbatimModuleSyntax',
-              'allowSyntheticDefaultImports',
-              'esModuleInterop',
-              'preserveSymlinks',
-              'forceConsistentCasingInFileNames',
               /* Type Checking */
               'strict',
               'strictBindCallApply',
@@ -212,6 +183,37 @@ export function sortTsconfig(): FlatESLintConfigItem[] {
               'noUnusedLocals',
               'noUnusedParameters',
               'useUnknownInCatchVariables',
+              /* Emit */
+              'declaration',
+              'declarationDir',
+              'declarationMap',
+              'downlevelIteration',
+              'emitBOM',
+              'emitDeclarationOnly',
+              'importHelpers',
+              'importsNotUsedAsValues',
+              'inlineSourceMap',
+              'inlineSources',
+              'mapRoot',
+              'newLine',
+              'noEmit',
+              'noEmitHelpers',
+              'noEmitOnError',
+              'outDir',
+              'outFile',
+              'preserveConstEnums',
+              'preserveValueImports',
+              'removeComments',
+              'sourceMap',
+              'sourceRoot',
+              'stripInternal',
+              /* Interop Constraints */
+              'allowSyntheticDefaultImports',
+              'esModuleInterop',
+              'forceConsistentCasingInFileNames',
+              'isolatedModules',
+              'preserveSymlinks',
+              'verbatimModuleSyntax',
               /* Completeness */
               'skipDefaultLibCheck',
               'skipLibCheck',

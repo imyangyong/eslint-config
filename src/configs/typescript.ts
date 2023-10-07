@@ -1,9 +1,8 @@
 import process from 'node:process'
-import type { FlatESLintConfigItem } from 'eslint-define-config'
-import { GLOB_TS, GLOB_TSX } from '../globs'
+import type { FlatESLintConfigItem, OptionsComponentExts, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes } from '../types'
+import { GLOB_SRC } from '../globs'
 import { parserTs, pluginAntfu, pluginImport, pluginTs } from '../plugins'
 import { OFF } from '../flags'
-import type { OptionsComponentExts, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes } from '../types'
 import { renameRules } from '../utils'
 
 export function typescript(
@@ -41,16 +40,16 @@ export function typescript(
   return [
     {
       // Install the plugins without globs, so they can be configured separately.
+      name: 'imyangyong:typescript:setup',
       plugins: {
-        antfu: pluginAntfu,
         import: pluginImport,
+        imyangyong: pluginAntfu,
         ts: pluginTs as any,
       },
     },
     {
       files: [
-        GLOB_TS,
-        GLOB_TSX,
+        GLOB_SRC,
         ...componentExts.map(ext => `**/*.${ext}`),
       ],
       languageOptions: {
@@ -66,6 +65,7 @@ export function typescript(
           ...parserOptions as any,
         },
       },
+      name: 'imyangyong:typescript:rules',
       rules: {
         ...renameRules(
           pluginTs.configs['eslint-recommended'].overrides![0].rules!,
@@ -81,23 +81,21 @@ export function typescript(
         'antfu/generic-spacing': 'error',
         'antfu/named-tuple-spacing': 'error',
         'antfu/no-cjs-exports': 'error',
-        'antfu/no-const-enum': 'error',
-        'antfu/no-ts-export-equal': 'error',
 
         'no-dupe-class-members': OFF,
-        'no-extra-parens': OFF,
         'no-invalid-this': OFF,
         'no-loss-of-precision': OFF,
         'no-redeclare': OFF,
         'no-use-before-define': OFF,
         'no-useless-constructor': OFF,
         'ts/ban-ts-comment': ['error', { 'ts-ignore': 'allow-with-description' }],
+        'ts/ban-types': ['error', { types: { Function: false } }],
         'ts/consistent-type-definitions': ['error', 'interface'],
         'ts/consistent-type-imports': ['error', { disallowTypeAnnotations: false, prefer: 'type-imports' }],
         'ts/no-dupe-class-members': 'error',
         'ts/no-dynamic-delete': OFF,
         'ts/no-explicit-any': OFF,
-        'ts/no-extra-parens': ['error', 'functions'],
+        'ts/no-extraneous-class': OFF,
         'ts/no-invalid-this': 'error',
         'ts/no-invalid-void-type': OFF,
         'ts/no-loss-of-precision': 'error',
@@ -106,8 +104,10 @@ export function typescript(
         'ts/no-require-imports': 'error',
         'ts/no-unused-vars': OFF,
         'ts/no-use-before-define': ['error', { classes: false, functions: false, variables: true }],
+        'ts/no-useless-constructor': OFF,
         'ts/prefer-ts-expect-error': 'error',
         'ts/triple-slash-reference': OFF,
+        'ts/unified-signatures': OFF,
 
         ...tsconfigPath ? typeAwareRules : {},
         ...overrides,
@@ -115,20 +115,24 @@ export function typescript(
     },
     {
       files: ['**/*.d.ts'],
+      name: 'imyangyong:typescript:dts-overrides',
       rules: {
         'eslint-comments/no-unlimited-disable': OFF,
         'import/no-duplicates': OFF,
+        'no-restricted-syntax': OFF,
         'unused-imports/no-unused-vars': OFF,
       },
     },
     {
       files: ['**/*.{test,spec}.ts?(x)'],
+      name: 'imyangyong:typescript:tests-overrides',
       rules: {
         'no-unused-expressions': OFF,
       },
     },
     {
       files: ['**/*.js', '**/*.cjs'],
+      name: 'imyangyong:typescript:javascript-overrides',
       rules: {
         'ts/no-require-imports': OFF,
         'ts/no-var-requires': OFF,

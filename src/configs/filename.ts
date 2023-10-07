@@ -1,6 +1,5 @@
-import type { FlatESLintConfigItem } from 'eslint-define-config'
 import { pluginFilename } from '../plugins'
-import type { OptionsOverrides } from '../types'
+import type { FlatESLintConfigItem, OptionsOverrides } from '../types'
 
 export function filename(options: OptionsOverrides = {}): FlatESLintConfigItem[] {
   const {
@@ -9,11 +8,13 @@ export function filename(options: OptionsOverrides = {}): FlatESLintConfigItem[]
 
   return [
     {
+      name: 'imyangyong:filename',
       plugins: {
         'eslint-filename': pluginFilename,
       },
     },
     {
+      name: 'imyangyong:filename:rules',
       rules: {
         'eslint-filename/filename-naming-convention': [
           'error',
@@ -29,6 +30,7 @@ export function filename(options: OptionsOverrides = {}): FlatESLintConfigItem[]
             '**/*': ['KEBAB_CASE', 'CAMEL_CASE', 'SCREAMING_SNAKE_CASE'],
           },
         ],
+        ...overrides,
       },
     },
   ]

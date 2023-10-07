@@ -1,7 +1,6 @@
-import type { FlatESLintConfigItem } from 'eslint-define-config'
+import type { FlatESLintConfigItem, OptionsOverrides, OptionsStylistic } from '../types'
 import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from '../globs'
 import { parserJsonc, pluginJsonc } from '../plugins'
-import type { OptionsOverrides, OptionsStylistic } from '../types'
 
 export function jsonc(options: OptionsStylistic & OptionsOverrides = {}): FlatESLintConfigItem[] {
   const {
@@ -9,8 +8,13 @@ export function jsonc(options: OptionsStylistic & OptionsOverrides = {}): FlatES
     overrides = {},
   } = options
 
+  const {
+    indent = 2,
+  } = typeof stylistic === 'boolean' ? {} : stylistic
+
   return [
     {
+      name: 'imyangyong:jsonc:setup',
       plugins: {
         jsonc: pluginJsonc as any,
       },
@@ -20,8 +24,8 @@ export function jsonc(options: OptionsStylistic & OptionsOverrides = {}): FlatES
       languageOptions: {
         parser: parserJsonc,
       },
+      name: 'imyangyong:jsonc:rules',
       rules: {
-
         'jsonc/no-bigint-literals': 'error',
         'jsonc/no-binary-expression': 'error',
         'jsonc/no-binary-numeric-literals': 'error',
@@ -54,7 +58,7 @@ export function jsonc(options: OptionsStylistic & OptionsOverrides = {}): FlatES
               'jsonc/array-bracket-spacing': ['error', 'never'],
               'jsonc/comma-dangle': ['error', 'never'],
               'jsonc/comma-style': ['error', 'last'],
-              'jsonc/indent': ['error', 2],
+              'jsonc/indent': ['error', indent],
               'jsonc/key-spacing': ['error', { afterColon: true, beforeColon: false }],
               'jsonc/object-curly-newline': ['error', { consistent: true, multiline: true }],
               'jsonc/object-curly-spacing': ['error', 'always'],

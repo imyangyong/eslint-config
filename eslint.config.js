@@ -1,8 +1,11 @@
 import sortKeys from 'eslint-plugin-sort-keys'
-import imyangyong from '@imyangyong/eslint-config'
+import styleMigrate from '@stylistic/eslint-plugin-migrate'
+import imyangyong from './dist/index.js'
 
 export default imyangyong(
   {
+    vue: true,
+    typescript: true,
     ignores: [
       'fixtures',
       '_fixtures',
@@ -18,6 +21,15 @@ export default imyangyong(
     },
     rules: {
       'sort-keys/sort-keys-fix': 'error',
+    },
+  },
+  {
+    files: ['src/configs/*.ts'],
+    plugins: {
+      'style-migrate': styleMigrate,
+    },
+    rules: {
+      'style-migrate/migrate': ['error', { namespaceTo: 'style' }],
     },
   },
 )

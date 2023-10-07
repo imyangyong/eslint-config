@@ -1,6 +1,5 @@
-import type { FlatESLintConfigItem } from 'eslint-define-config'
+import type { FlatESLintConfigItem, OptionsStylistic } from '../types'
 import { pluginAntfu, pluginImport } from '../plugins'
-import type { OptionsStylistic } from '../types'
 
 export function imports(options: OptionsStylistic = {}): FlatESLintConfigItem[] {
   const {
@@ -9,15 +8,15 @@ export function imports(options: OptionsStylistic = {}): FlatESLintConfigItem[] 
 
   return [
     {
+      name: 'imyangyong:imports',
       plugins: {
-        antfu: pluginAntfu,
         import: pluginImport,
+        imyangyong: pluginAntfu,
       },
       rules: {
         'antfu/import-dedupe': 'error',
         'antfu/no-import-node-modules-by-path': 'error',
 
-        'import/export': 'error',
         'import/first': 'error',
         'import/no-duplicates': 'error',
         'import/no-mutable-exports': 'error',

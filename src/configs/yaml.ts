@@ -1,8 +1,7 @@
-import type { FlatESLintConfigItem } from 'eslint-define-config'
+import type { FlatESLintConfigItem, OptionsOverrides, OptionsStylistic } from '../types'
 import { GLOB_YAML } from '../globs'
 import { parserYaml, pluginYaml } from '../plugins'
 import { OFF } from '../flags'
-import type { OptionsOverrides, OptionsStylistic } from '../types'
 
 export function yaml(
   options: OptionsOverrides & OptionsStylistic = {},
@@ -12,8 +11,14 @@ export function yaml(
     stylistic = true,
   } = options
 
+  const {
+    indent = 2,
+    quotes = 'single',
+  } = typeof stylistic === 'boolean' ? {} : stylistic
+
   return [
     {
+      name: 'imyangyong:yaml:setup',
       plugins: {
         yaml: pluginYaml as any,
       },
@@ -23,6 +28,7 @@ export function yaml(
       languageOptions: {
         parser: parserYaml,
       },
+      name: 'imyangyong:yaml:rules',
       rules: {
         'style/spaced-comment': OFF,
 
@@ -43,10 +49,10 @@ export function yaml(
               'yaml/flow-mapping-curly-spacing': 'error',
               'yaml/flow-sequence-bracket-newline': 'error',
               'yaml/flow-sequence-bracket-spacing': 'error',
-              'yaml/indent': ['error', 2],
+              'yaml/indent': ['error', indent === 'tab' ? 2 : indent],
               'yaml/key-spacing': 'error',
               'yaml/no-tab-indent': 'error',
-              'yaml/quotes': ['error', { avoidEscape: false, prefer: 'single' }],
+              'yaml/quotes': ['error', { avoidEscape: false, prefer: quotes }],
               'yaml/spaced-comment': 'error',
             }
           : {},

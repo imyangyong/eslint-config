@@ -1,6 +1,5 @@
-import type { FlatESLintConfigItem } from 'eslint-define-config'
+import type { FlatESLintConfigItem, OptionsStylistic } from '../types'
 import { pluginJsdoc } from '../plugins'
-import type { OptionsStylistic } from '../types'
 
 export function jsdoc(options: OptionsStylistic = {}): FlatESLintConfigItem[] {
   const {
@@ -9,6 +8,7 @@ export function jsdoc(options: OptionsStylistic = {}): FlatESLintConfigItem[] {
 
   return [
     {
+      name: 'imyangyong:jsdoc',
       plugins: {
         jsdoc: pluginJsdoc,
       },
@@ -28,7 +28,6 @@ export function jsdoc(options: OptionsStylistic = {}): FlatESLintConfigItem[] {
         'jsdoc/require-returns-check': 'warn',
         'jsdoc/require-returns-description': 'warn',
         'jsdoc/require-yields-check': 'warn',
-        'jsdoc/valid-types': 'warn',
 
         ...stylistic
           ? {

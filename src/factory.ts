@@ -1,8 +1,8 @@
 import process from 'node:process'
 import fs from 'node:fs'
-import type { FlatESLintConfigItem } from 'eslint-define-config'
 import { isPackageExists } from 'local-pkg'
 import gitignore from 'eslint-config-flat-gitignore'
+import type { FlatESLintConfigItem, OptionsConfig } from './types'
 import {
   comments,
   filename,
@@ -22,7 +22,6 @@ import {
   vue,
   yaml,
 } from './configs'
-import type { OptionsConfig } from './types'
 import { combine } from './utils'
 
 const flatConfigProps: (keyof FlatESLintConfigItem)[] = [
@@ -55,6 +54,7 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
     gitignore: enableGitignore = true,
     filename: enableFilename = true,
     overrides = {},
+    componentExts = [],
   } = options
 
   const configs: FlatESLintConfigItem[][] = []
@@ -69,106 +69,108 @@ export function imyangyong(options: OptionsConfig & FlatESLintConfigItem = {}, .
     }
   }
 
-  if (enableFilename) {
+  // Base configs
+  configs.push(
+    ignores(),
+    javascript({
+      isInEditor,
+      overrides: overrides.javascript,
+    }),
+    comments(),
+    node(),
+    jsdoc({
+      stylistic: enableStylistic,
+    }),
+    imports({
+      stylistic: enableStylistic,
+    }),
+    unicorn(),
+  )
+
+  if (enableVue)
+    componentExts.push('vue')
+
+  if (enableTypeScript) {
+    configs.push(typescript({
+      ...typeof enableTypeScript !== 'boolean'
+        ? enableTypeScript
+        : {},
+      componentExts,
+      overrides: overrides.typescript,
+    }))
+  }
+
+  if (enableStylistic) {
+    configs.push(stylistic(
+      typeof enableStylistic === 'boolean'
+        ? {}
+        : enableStylistic,
+    ))
+  }
+
+  if (options.test ?? true) {
+    configs.push(test({
+      isInEditor,
+      overrides: overrides.test,
+    }))
+  }
+
+  if (enableVue) {
+    configs.push(vue({
+      overrides: overrides.vue,
+      stylistic: enableStylistic,
+      typescript: !!enableTypeScript,
+    }))
+  }
+
+  if (options.jsonc ?? true) {
+    configs.push(
+      jsonc({
+        overrides: overrides.jsonc,
+        stylistic: enableStylistic,
+      }),
+      sortPackageJson(),
+      sortTsconfig(),
+    )
+  }
+
+  if (options.yaml ?? true) {
+    configs.push(yaml({
+      overrides: overrides.yaml,
+      stylistic: enableStylistic,
+    }))
+  }
+
+  if (options.markdown ?? true) {
+    configs.push(markdown({
+      componentExts,
+      overrides: overrides.markdown,
+    }))
+  }
+
+  if (enableFilename ?? true) {
     configs.push(filename({
       overrides: overrides.filename,
     }))
-
-    // Base configs
-    configs.push(
-      ignores(),
-      javascript({
-        isInEditor,
-        overrides: overrides.javascript,
-      }),
-      comments(),
-      node(),
-      jsdoc({
-        stylistic: enableStylistic,
-      }),
-      imports({
-        stylistic: enableStylistic,
-      }),
-      unicorn(),
-    )
-
-    // In the future we may support more component extensions like Svelte or so
-    const componentExts: string[] = []
-
-    if (enableVue)
-      componentExts.push('vue')
-
-    if (enableTypeScript) {
-      configs.push(typescript({
-        ...typeof enableTypeScript !== 'boolean'
-          ? enableTypeScript
-          : {},
-        componentExts,
-        overrides: overrides.typescript,
-      }))
-    }
-
-    if (enableStylistic)
-      configs.push(stylistic())
-
-    if (options.test ?? true) {
-      configs.push(test({
-        isInEditor,
-        overrides: overrides.test,
-      }))
-    }
-
-    if (enableVue) {
-      configs.push(vue({
-        overrides: overrides.vue,
-        stylistic: enableStylistic,
-        typescript: !!enableTypeScript,
-      }))
-    }
-
-    if (options.jsonc ?? true) {
-      configs.push(
-        jsonc({
-          overrides: overrides.jsonc,
-          stylistic: enableStylistic,
-        }),
-        sortPackageJson(),
-        sortTsconfig(),
-      )
-    }
-
-    if (options.yaml ?? true) {
-      configs.push(yaml({
-        overrides: overrides.yaml,
-        stylistic: enableStylistic,
-      }))
-    }
-
-    if (options.markdown ?? true) {
-      configs.push(markdown({
-        componentExts,
-        overrides: overrides.markdown,
-      }))
-    }
-
-    // User can optionally pass a flat config item to the first argument
-    // We pick the known keys as ESLint would do schema validation
-    const fusedConfig = flatConfigProps.reduce((acc, key) => {
-      if (key in options)
-        acc[key] = options[key]
-      return acc
-    }, {} as FlatESLintConfigItem)
-    if (Object.keys(fusedConfig).length)
-      configs.push([fusedConfig])
-
-    const merged = combine(
-      ...configs,
-      ...userConfigs,
-    )
-
-    // recordRulesStateConfigs(merged)
-    // warnUnnecessaryOffRules()
-
-    return merged
   }
+
+  // User can optionally pass a flat config item to the first argument
+  // We pick the known keys as ESLint would do schema validation
+  const fusedConfig = flatConfigProps.reduce((acc, key) => {
+    if (key in options)
+      acc[key] = options[key] as any
+    return acc
+  }, {} as FlatESLintConfigItem)
+  if (Object.keys(fusedConfig).length)
+    configs.push([fusedConfig])
+
+  const merged = combine(
+    ...configs,
+    ...userConfigs,
+  )
+
+  // recordRulesStateConfigs(merged)
+  // warnUnnecessaryOffRules()
+
+  return merged
 }
