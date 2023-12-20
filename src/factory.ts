@@ -4,6 +4,7 @@ import { isPackageExists } from 'local-pkg'
 import type { Awaitable, FlatConfigItem, OptionsConfig, UserConfigItem } from './types'
 import {
   comments,
+  filename,
   ignores,
   imports,
   javascript,
@@ -186,6 +187,9 @@ export async function imyangyong(
       ),
     )
   }
+
+  if (options.filename)
+    configs.push(filename())
 
   if (options.formatters) {
     configs.push(formatters(

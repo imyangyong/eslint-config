@@ -301,6 +301,16 @@ export interface OptionsConfig extends OptionsComponentExts {
   unocss?: boolean | OptionsUnoCSS
 
   /**
+   * Enable filename plugin.
+   *
+   * Requires installing:
+   * - `eslint-plugin-filesname`
+   *
+   * @default false
+   */
+  filename?: boolean
+
+  /**
    * Use external formatters to format files.
    *
    * Requires installing:
