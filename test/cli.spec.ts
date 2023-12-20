@@ -39,10 +39,9 @@ afterAll(async () => await fs.rm(genPath, { recursive: true, force: true }))
 
 it('package.json updated', async () => {
   const { stdout } = await run()
-
   const pkgContent: Record<string, any> = await fs.readJSON(join(genPath, 'package.json'))
 
-  expect(JSON.stringify(pkgContent.devDependencies)).toContain('@antfu/eslint-config')
+  expect(JSON.stringify(pkgContent.devDependencies)).toContain('@imyangyong/eslint-config')
   expect(stdout).toContain('changes wrote to package.json')
 })
 
@@ -73,9 +72,9 @@ it('ignores files added in eslint.config.js', async () => {
   expect(stdout).toContain('created eslint.config.js')
   expect(eslintConfigContent)
     .toMatchInlineSnapshot(`
-      "const antfu = require('@antfu/eslint-config').default
+      "const imyangyong = require('@imyangyong/eslint-config').default
 
-      module.exports = antfu({
+      module.exports = imyangyong({
       ignores: ["some-path","**/some-path/**","some-file","**/some-file/**"]
       })
       "

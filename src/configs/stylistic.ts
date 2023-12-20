@@ -33,7 +33,7 @@ export async function stylistic(options: StylisticConfig = {}): Promise<FlatConf
 
   return [
     {
-      name: 'antfu:stylistic',
+      name: 'imyangyong:stylistic',
       plugins: {
         antfu: pluginAntfu,
         style: pluginStylistic,

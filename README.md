@@ -1,6 +1,6 @@
-# @antfu/eslint-config
+# @imyangyong/eslint-config
 
-[![npm](https://img.shields.io/npm/v/@antfu/eslint-config?color=444&label=)](https://npmjs.com/package/@antfu/eslint-config) [![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
+[![npm](https://img.shields.io/npm/v/@imyangyong/eslint-config?color=444&label=)](https://npmjs.com/package/@imyangyong/eslint-config)
 
 - Single quotes, no semi
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
@@ -16,14 +16,14 @@
 - **Style principle**: Minimal for reading, stable for diff, consistent
 
 > [!IMPORTANT]
-> Since v1.0.0, this config is rewritten to the new [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), check the [release note](https://github.com/antfu/eslint-config/releases/tag/v1.0.0) for more details.
+> Since v1.0.0, this config is rewritten to the new [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new).
 
 ## Usage
 
 ### Install
 
 ```bash
-pnpm i -D eslint @antfu/eslint-config
+pnpm i -D eslint @imyangyong/eslint-config
 ```
 
 ### Create config file
@@ -32,18 +32,18 @@ With [`"type": "module"`](https://nodejs.org/api/packages.html#type) in `package
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu()
+export default imyangyong()
 ```
 
 With CJS:
 
 ```js
 // eslint.config.js
-const antfu = require('@antfu/eslint-config').default
+const imyangyong = require('@imyangyong/eslint-config').default
 
-module.exports = antfu()
+module.exports = imyangyong()
 ```
 
 > [!TIP]
@@ -53,12 +53,12 @@ Combined with legacy config:
 
 ```js
 // eslint.config.js
-const antfu = require('@antfu/eslint-config').default
+const imyangyong = require('@imyangyong/eslint-config').default
 const { FlatCompat } = require('@eslint/eslintrc')
 
 const compat = new FlatCompat()
 
-module.exports = antfu(
+module.exports = imyangyong(
   {
     ignores: [],
   },
@@ -95,7 +95,7 @@ For example:
 We provided an experimental CLI tool to help you migrate from the legacy config to the new flat config.
 
 ```bash
-npx @antfu/eslint-config@latest
+npx @imyangyong/eslint-config@latest
 ```
 
 Before running the migration, make sure to commit your unsaved changes first.
@@ -156,22 +156,22 @@ Add the following settings to your `.vscode/settings.json`:
 
 Since v1.0, we migrated to [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new). It provides much better organization and composition.
 
-Normally you only need to import the `antfu` preset:
+Normally you only need to import the `imyangyong` preset:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu()
+export default imyangyong()
 ```
 
 And that's it! Or you can configure each integration individually, for example:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu({
+export default imyangyong({
   // Enable stylistic formatting rules
   // stylistic: true,
 
@@ -197,15 +197,15 @@ export default antfu({
 })
 ```
 
-The `antfu` factory function also accepts any number of arbitrary custom config overrides:
+The `imyangyong` factory function also accepts any number of arbitrary custom config overrides:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu(
+export default imyangyong(
   {
-    // Configures for antfu's config
+    // Configures for imyangyong's config
   },
 
   // From the second arguments they are ESLint Flat Configs
@@ -269,9 +269,7 @@ export default combine(
 
 </details>
 
-Check out the [configs](https://github.com/antfu/eslint-config/blob/main/src/configs) and [factory](https://github.com/antfu/eslint-config/blob/main/src/factory.ts) for more details.
-
-> Thanks to [sxzz/eslint-config](https://github.com/sxzz/eslint-config) for the inspiration and reference.
+Check out the [configs](https://github.com/imyangyong/eslint-config/blob/main/src/configs) and [factory](https://github.com/imyangyong/eslint-config/blob/main/src/factory.ts) for more details.
 
 ### Plugins Renaming
 
@@ -301,9 +299,9 @@ Certain rules would only be enabled in specific files, for example, `ts/*` rules
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu(
+export default imyangyong(
   { vue: true, typescript: true },
   {
     // Remember to specify the file glob here, otherwise it might cause the vue plugin to handle non-vue files
@@ -325,9 +323,9 @@ We also provided an `overrides` options to make it easier:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu({
+export default imyangyong({
   overrides: {
     vue: {
       'vue/operator-linebreak': ['error', 'before'],
@@ -354,9 +352,9 @@ Use external formatters to format files that ESLint cannot handle yet (`.css`, `
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu({
+export default imyangyong({
   formatters: {
     /**
      * Format CSS, LESS, SCSS files, also the `<style>` blocks in Vue
@@ -390,9 +388,9 @@ To enable React support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu({
+export default imyangyong({
   react: true,
 })
 ```
@@ -409,9 +407,9 @@ To enable UnoCSS support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu({
+export default imyangyong({
   unocss: true,
 })
 ```
@@ -450,9 +448,9 @@ You can optionally enable the [type aware rules](https://typescript-eslint.io/li
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu({
+export default imyangyong({
   typescript: {
     tsconfigPath: 'tsconfig.json',
   },
@@ -506,46 +504,3 @@ This project follows [Semantic Versioning](https://semver.org/) for releases. Ho
 - Enable/disable rules and plugins (that might become stricter)
 - Rules options changes
 - Version bumps of dependencies
-
-## Badge
-
-If you enjoy this code style, and would like to mention it in your project, here is the badge you can use:
-
-```md
-[![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
-```
-
-[![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
-
-## FAQ
-
-### Prettier?
-
-[Why I don't use Prettier](https://antfu.me/posts/why-not-prettier)
-
-Well, you can still use Prettier to format files that are not supported well by ESLint yet, such as `.css`, `.html`, etc. See [formatters](#formatters) for more details.
-
-### dprint?
-
-[dprint](https://dprint.dev/) is also a great formatter that with more abilities to customize. However, it's in the same model as Prettier which reads the AST and reprints the code from scratch. This means it's similar to Prettier, which ignores the original line breaks and might also cause the inconsistent diff. So in general, we prefer to use ESLint to format and lint JavaScript/TypeScript code.
-
-Meanwhile, we do have dprint integrations for formatting other files such as `.md`. See [formatters](#formatters) for more details.
-
-### How to format CSS?
-
-You can opt-in to the [`formatters`](#formatters) feature to format your CSS. Note that it's only doing formatting, but not linting. If you want proper linting support, give [`stylelint`](https://stylelint.io/) a try.
-
-### I prefer XXX...
-
-Sure, you can configure and override rules locally in your project to fit your needs. If that still does not work for you, you can always fork this repo and maintain your own.
-
-## Check Also
-
-- [antfu/dotfiles](https://github.com/antfu/dotfiles) - My dotfiles
-- [antfu/vscode-settings](https://github.com/antfu/vscode-settings) - My VS Code settings
-- [antfu/starter-ts](https://github.com/antfu/starter-ts) - My starter template for TypeScript library
-- [antfu/vitesse](https://github.com/antfu/vitesse) - My starter template for Vue & Vite app
-
-## License
-
-[MIT](./LICENSE) License &copy; 2019-PRESENT [Anthony Fu](https://github.com/antfu)

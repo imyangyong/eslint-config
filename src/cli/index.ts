@@ -7,11 +7,11 @@ import { run } from './run'
 import { CROSS, version } from './constants'
 
 function header() {
-  console.log(`\n${c.green(`@antfu/eslint-config `)}${c.dim(`v${version}`)}`)
+  console.log(`\n${c.green(`@imyangyong/eslint-config `)}${c.dim(`v${version}`)}`)
 }
 
 const instance = yargs(hideBin(process.argv))
-  .scriptName('@antfu/eslint-config')
+  .scriptName('@imyangyong/eslint-config')
   .usage('')
   .command(
     '*',

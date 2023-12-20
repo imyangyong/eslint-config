@@ -55,7 +55,7 @@ export async function typescript(
   return [
     {
       // Install the plugins without globs, so they can be configured separately.
-      name: 'antfu:typescript:setup',
+      name: 'imyangyong:typescript:setup',
       plugins: {
         antfu: pluginAntfu,
         ts: pluginTs as any,
@@ -77,7 +77,7 @@ export async function typescript(
           ...parserOptions as any,
         },
       },
-      name: 'antfu:typescript:rules',
+      name: 'imyangyong:typescript:rules',
       rules: {
         ...renameRules(
           pluginTs.configs['eslint-recommended'].overrides![0].rules!,
@@ -122,7 +122,7 @@ export async function typescript(
     },
     {
       files: ['**/*.d.ts'],
-      name: 'antfu:typescript:dts-overrides',
+      name: 'imyangyong:typescript:dts-overrides',
       rules: {
         'eslint-comments/no-unlimited-disable': 'off',
         'import/no-duplicates': 'off',
@@ -132,14 +132,14 @@ export async function typescript(
     },
     {
       files: ['**/*.{test,spec}.ts?(x)'],
-      name: 'antfu:typescript:tests-overrides',
+      name: 'imyangyong:typescript:tests-overrides',
       rules: {
         'no-unused-expressions': 'off',
       },
     },
     {
       files: ['**/*.js', '**/*.cjs'],
-      name: 'antfu:typescript:javascript-overrides',
+      name: 'imyangyong:typescript:javascript-overrides',
       rules: {
         'ts/no-require-imports': 'off',
         'ts/no-var-requires': 'off',

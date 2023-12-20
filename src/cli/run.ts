@@ -45,12 +45,12 @@ export async function run(options: RuleOptions = {}) {
   }
 
   // Update package.json
-  console.log(c.cyan(`${ARROW} bumping @antfu/eslint-config to v${version}`))
+  console.log(c.cyan(`${ARROW} bumping @imyangyong/eslint-config to v${version}`))
   const pkgContent = await fsp.readFile(pathPackageJSON, 'utf-8')
   const pkg: Record<string, any> = JSON.parse(pkgContent)
 
   pkg.devDependencies ??= {}
-  pkg.devDependencies['@antfu/eslint-config'] = `^${version}`
+  pkg.devDependencies['@imyangyong/eslint-config'] = `^${version}`
 
   if (!pkg.devDependencies.eslint)
     pkg.devDependencies.eslint = eslintVersion
@@ -77,19 +77,19 @@ export async function run(options: RuleOptions = {}) {
 
   let eslintConfigContent: string = ''
 
-  const antfuConfig = `${eslintIgnores.length ? `ignores: ${JSON.stringify(eslintIgnores)}` : ''}`
+  const imyangyongConfig = `${eslintIgnores.length ? `ignores: ${JSON.stringify(eslintIgnores)}` : ''}`
   if (pkg.type === 'module') {
     eslintConfigContent = `
-import antfu from '@antfu/eslint-config'
+import imyangyong from '@imyangyong/eslint-config'
 
-export default antfu({\n${antfuConfig}\n})
+export default imyangyong({\n${imyangyongConfig}\n})
 `.trimStart()
   }
   else {
     eslintConfigContent = `
-const antfu = require('@antfu/eslint-config').default
+const imyangyong = require('@imyangyong/eslint-config').default
 
-module.exports = antfu({\n${antfuConfig}\n})
+module.exports = imyangyong({\n${imyangyongConfig}\n})
 `.trimStart()
   }
 
