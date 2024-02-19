@@ -4,14 +4,15 @@
 
 - Single quotes, no semi
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
+- Sorted imports, dangling commas
+- Reasonable defaults, best practices, only one line of config
 - Designed to work with TypeScript, JSX, Vue out-of-box
 - Lints also for json, yaml, toml, markdown
-- Sorted imports, dangling commas
-- Reasonable defaults, best practices, only one-line of config
 - Opinionated, but [very customizable](#customization)
 - [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
 - Using [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
 - Respects `.gitignore` by default
+- Optional [React](#react), [Svelte](#svelte), [UnoCSS](#unocss) support
 - Optional [formatters](#formatters) support for CSS, HTML, etc.
 - **Style principle**: Minimal for reading, stable for diff, consistent
 
@@ -191,7 +192,7 @@ export default imyangyong({
 
   // `.eslintignore` is no longer supported in Flat config, use `ignores` instead
   ignores: [
-    './fixtures',
+    '**/fixtures',
     // ...globs
   ]
 })
@@ -302,7 +303,10 @@ Certain rules would only be enabled in specific files, for example, `ts/*` rules
 import imyangyong from '@imyangyong/eslint-config'
 
 export default imyangyong(
-  { vue: true, typescript: true },
+  {
+    vue: true,
+    typescript: true
+  },
   {
     // Remember to specify the file glob here, otherwise it might cause the vue plugin to handle non-vue files
     files: ['**/*.vue'],
@@ -319,23 +323,28 @@ export default imyangyong(
 )
 ```
 
-We also provided an `overrides` options to make it easier:
+We also provided a `overrides` options in each integration to make it easier:
 
 ```js
 // eslint.config.js
 import imyangyong from '@imyangyong/eslint-config'
 
 export default imyangyong({
-  overrides: {
-    vue: {
+  vue: {
+    overrides: {
       'vue/operator-linebreak': ['error', 'before'],
     },
-    typescript: {
+  },
+  typescript: {
+    overrides: {
       'ts/consistent-type-definitions': ['error', 'interface'],
     },
-    yaml: {},
-    // ...
-  }
+  },
+  yaml: {
+    overrides: {
+      // ...
+    },
+  },
 })
 ```
 
@@ -401,6 +410,25 @@ Running `npx eslint` should prompt you to install the required dependencies, oth
 npm i -D eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh
 ```
 
+#### Svelte
+
+To enable svelte support, you need to explicitly turn it on:
+
+```js
+// eslint.config.js
+import antfu from '@antfu/eslint-config'
+
+export default antfu({
+  svelte: true,
+})
+```
+
+Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+
+```bash
+npm i -D eslint-plugin-svelte
+```
+
 #### UnoCSS
 
 To enable UnoCSS support, you need to explicitly turn it on:
@@ -422,7 +450,7 @@ npm i -D @unocss/eslint-plugin
 
 ### Optional Rules
 
-This config also provides some optional plugins/rules for extended usages.
+This config also provides some optional plugins/rules for extended usage.
 
 #### `perfectionist` (sorting)
 
@@ -476,6 +504,9 @@ and then
 
 ```bash
 npm i -D lint-staged simple-git-hooks
+
+// to active the hooks
+npx simple-git-hooks
 ```
 
 ## View what rules are enabled

@@ -1,6 +1,6 @@
 import process from 'node:process'
+import { GLOB_SRC, GLOB_TS, GLOB_TSX } from '../globs'
 import type { FlatConfigItem, OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes } from '../types'
-import { GLOB_SRC } from '../globs'
 import { pluginAntfu } from '../plugins'
 import { interopDefault, renameRules, toArray } from '../utils'
 
@@ -17,6 +17,12 @@ export async function typescript(
     GLOB_SRC,
     ...componentExts.map(ext => `**/*.${ext}`),
   ]
+
+  const filesTypeAware = options.filesTypeAware ?? [GLOB_TS, GLOB_TSX]
+  const tsconfigPath = options?.tsconfigPath
+    ? toArray(options.tsconfigPath)
+    : undefined
+  const isTypeAware = !!tsconfigPath
 
   const typeAwareRules: FlatConfigItem['rules'] = {
     'dot-notation': 'off',
@@ -40,10 +46,6 @@ export async function typescript(
     'ts/unbound-method': 'error',
   }
 
-  const tsconfigPath = options?.tsconfigPath
-    ? toArray(options.tsconfigPath)
-    : undefined
-
   const [
     pluginTs,
     parserTs,
@@ -51,6 +53,28 @@ export async function typescript(
     interopDefault(import('@typescript-eslint/eslint-plugin')),
     interopDefault(import('@typescript-eslint/parser')),
   ] as const)
+
+  function makeParser(typeAware: boolean, files: string[], ignores?: string[]): FlatConfigItem {
+    return {
+      files,
+      ...ignores ? { ignores } : {},
+      languageOptions: {
+        parser: parserTs,
+        parserOptions: {
+          extraFileExtensions: componentExts.map(ext => `.${ext}`),
+          sourceType: 'module',
+          ...typeAware
+            ? {
+                project: tsconfigPath,
+                tsconfigRootDir: process.cwd(),
+              }
+            : {},
+          ...parserOptions as any,
+        },
+      },
+      name: `imyangyong:typescript:${typeAware ? 'type-aware-parser' : 'parser'}`,
+    }
+  }
 
   return [
     {
@@ -61,22 +85,15 @@ export async function typescript(
         ts: pluginTs as any,
       },
     },
+    // assign type-aware parser for type-aware files and type-unaware parser for the rest
+    ...isTypeAware
+      ? [
+          makeParser(true, filesTypeAware),
+          makeParser(false, files, filesTypeAware),
+        ]
+      : [makeParser(false, files)],
     {
       files,
-      languageOptions: {
-        parser: parserTs,
-        parserOptions: {
-          extraFileExtensions: componentExts.map(ext => `.${ext}`),
-          sourceType: 'module',
-          ...tsconfigPath
-            ? {
-                project: tsconfigPath,
-                tsconfigRootDir: process.cwd(),
-              }
-            : {},
-          ...parserOptions as any,
-        },
-      },
       name: 'imyangyong:typescript:rules',
       rules: {
         ...renameRules(
@@ -89,7 +106,6 @@ export async function typescript(
           '@typescript-eslint/',
           'ts/',
         ),
-
         'no-dupe-class-members': 'off',
         'no-loss-of-precision': 'off',
         'no-redeclare': 'off',
@@ -99,6 +115,7 @@ export async function typescript(
         'ts/ban-types': ['error', { types: { Function: false } }],
         'ts/consistent-type-definitions': ['error', 'interface'],
         'ts/consistent-type-imports': ['error', { disallowTypeAnnotations: false, prefer: 'type-imports' }],
+        'ts/method-signature-style': ['error', 'property'], // https://www.totaltypescript.com/method-shorthand-syntax-considered-harmful
         'ts/no-dupe-class-members': 'error',
         'ts/no-dynamic-delete': 'off',
         'ts/no-explicit-any': 'off',
@@ -115,7 +132,13 @@ export async function typescript(
         'ts/prefer-ts-expect-error': 'error',
         'ts/triple-slash-reference': 'off',
         'ts/unified-signatures': 'off',
-
+        ...overrides,
+      },
+    },
+    {
+      files: filesTypeAware,
+      name: 'imyangyong:typescript:rules-type-aware',
+      rules: {
         ...tsconfigPath ? typeAwareRules : {},
         ...overrides,
       },

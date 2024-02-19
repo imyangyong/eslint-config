@@ -80,7 +80,7 @@ export interface OptionsFiles {
   files?: string[]
 }
 
-export interface OptionsVue {
+export interface OptionsVue extends OptionsOverrides {
   /**
    * Create virtual files for Vue SFC blocks to enable linting.
    *
@@ -96,6 +96,10 @@ export interface OptionsVue {
    */
   vueVersion?: 2 | 3
 }
+
+export type OptionsTypescript =
+  (OptionsTypeScriptWithTypes & OptionsOverrides)
+  | (OptionsTypeScriptParserOptions & OptionsOverrides)
 
 export interface OptionsFormatters {
   /**
@@ -156,6 +160,12 @@ export interface OptionsTypeScriptParserOptions {
    * Additional parser options for TypeScript.
    */
   parserOptions?: Partial<ParserOptions>
+
+  /**
+   * Glob patterns for files that should be type aware.
+   * @default ['**\/*.{ts,tsx}']
+   */
+  filesTypeAware?: string[]
 }
 
 export interface OptionsTypeScriptWithTypes {
@@ -185,7 +195,7 @@ export interface OptionsIsInEditor {
   isInEditor?: boolean
 }
 
-export interface OptionsUnoCSS {
+export interface OptionsUnoCSS extends OptionsOverrides {
   /**
    * Enable attributify support.
    * @default true
@@ -210,13 +220,18 @@ export interface OptionsConfig extends OptionsComponentExts {
   gitignore?: boolean | FlatGitignoreOptions
 
   /**
+   * Core rules. Can't be disabled.
+   */
+  javascript?: OptionsOverrides
+
+  /**
    * Enable TypeScript support.
    *
    * Passing an object to enable TypeScript Language Server support.
    *
    * @default auto-detect based on the dependencies
    */
-  typescript?: boolean | OptionsTypeScriptWithTypes | OptionsTypeScriptParserOptions
+  typescript?: boolean | OptionsTypescript
 
   /**
    * Enable JSX related rules.
@@ -232,7 +247,7 @@ export interface OptionsConfig extends OptionsComponentExts {
    *
    * @default true
    */
-  test?: boolean
+  test?: boolean | OptionsOverrides
 
   /**
    * Enable Vue support.
@@ -246,21 +261,21 @@ export interface OptionsConfig extends OptionsComponentExts {
    *
    * @default true
    */
-  jsonc?: boolean
+  jsonc?: boolean | OptionsOverrides
 
   /**
    * Enable YAML support.
    *
    * @default true
    */
-  yaml?: boolean
+  yaml?: boolean | OptionsOverrides
 
   /**
    * Enable TOML support.
    *
    * @default true
    */
-  toml?: boolean
+  toml?: boolean | OptionsOverrides
 
   /**
    * Enable linting for **code snippets** in Markdown.
@@ -269,14 +284,14 @@ export interface OptionsConfig extends OptionsComponentExts {
    *
    * @default true
    */
-  markdown?: boolean
+  markdown?: boolean | OptionsOverrides
 
   /**
    * Enable stylistic rules.
    *
    * @default true
    */
-  stylistic?: boolean | StylisticConfig
+  stylistic?: boolean | (StylisticConfig & OptionsOverrides)
 
   /**
    * Enable react rules.
@@ -288,7 +303,17 @@ export interface OptionsConfig extends OptionsComponentExts {
    *
    * @default false
    */
-  react?: boolean
+  react?: boolean | OptionsOverrides
+
+  /**
+   * Enable svelte rules.
+   *
+   * Requires installing:
+   * - `eslint-plugin-svelte`
+   *
+   * @default false
+   */
+  svelte?: boolean
 
   /**
    * Enable unocss rules.
@@ -330,8 +355,11 @@ export interface OptionsConfig extends OptionsComponentExts {
 
   /**
    * Provide overrides for rules for each integration.
+   *
+   * @deprecated use `overrides` option in each integration key instead
    */
   overrides?: {
+    stylistic?: FlatConfigItem['rules']
     javascript?: FlatConfigItem['rules']
     typescript?: FlatConfigItem['rules']
     test?: FlatConfigItem['rules']
@@ -341,5 +369,6 @@ export interface OptionsConfig extends OptionsComponentExts {
     yaml?: FlatConfigItem['rules']
     toml?: FlatConfigItem['rules']
     react?: FlatConfigItem['rules']
+    svelte?: FlatConfigItem['rules']
   }
 }
