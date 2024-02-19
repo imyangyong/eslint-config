@@ -1,7 +1,7 @@
 {
   "name": "@imyangyong/eslint-config",
   "type": "module",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "packageManager": "pnpm@8.15.1",
   "description": "Yong Yang's ESLint config",
   "license": "MIT",
