@@ -1,17 +1,22 @@
 // @ts-expect-error missing types
 import styleMigrate from '@stylistic/eslint-plugin-migrate'
-import imyangyong from './src'
+import { imyangyong } from './src'
 
 export default imyangyong(
   {
     vue: true,
-    // react: true,
+    react: true,
+    solid: true,
+    svelte: true,
+    astro: true,
     typescript: true,
+    formatters: true,
+  },
+  {
     ignores: [
       'fixtures',
       '_fixtures',
     ],
-    formatters: true,
   },
   {
     files: ['src/**/*.ts'],

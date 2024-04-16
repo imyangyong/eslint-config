@@ -9,3 +9,16 @@ export function isGitClean() {
     return false
   }
 }
+
+export function getEslintConfigContent(
+  mainConfig: string,
+  additionalConfigs?: string[],
+) {
+  return `
+import imyangyong from '@imyangyong/eslint-config'
+
+export default imyangyong({
+${mainConfig}
+}${additionalConfigs?.map(config => `,{\n${config}\n}`)})
+`.trimStart()
+}

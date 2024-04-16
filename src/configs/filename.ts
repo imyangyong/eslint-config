@@ -1,7 +1,7 @@
 import { ensurePackages, interopDefault } from '../utils'
-import type { FlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from '../types'
 
-export async function filename(): Promise<FlatConfigItem[]> {
+export async function filename(): Promise<TypedFlatConfigItem[]> {
   await ensurePackages([
     'eslint-plugin-filesname',
   ])
@@ -15,7 +15,7 @@ export async function filename(): Promise<FlatConfigItem[]> {
 
   return [
     {
-      name: 'imyangyong:filename',
+      name: 'imyangyong/filename',
       plugins: {
         filename: pluginFilename,
       },

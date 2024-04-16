@@ -1,8 +1,11 @@
 import process from 'node:process'
 import fs from 'node:fs'
 import { isPackageExists } from 'local-pkg'
-import type { Awaitable, FlatConfigItem, OptionsConfig, UserConfigItem } from './types'
+import { FlatConfigComposer } from 'eslint-flat-config-utils'
+import type { Linter } from 'eslint'
+import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
 import {
+  astro,
   comments,
   filename,
   ignores,
@@ -14,6 +17,7 @@ import {
   node,
   perfectionist,
   react,
+  solid,
   sortPackageJson,
   sortTsconfig,
   stylistic,
@@ -26,10 +30,10 @@ import {
   vue,
   yaml,
 } from './configs'
-import { combine, interopDefault } from './utils'
+import { interopDefault } from './utils'
 import { formatters } from './configs/formatters'
 
-const flatConfigProps: (keyof FlatConfigItem)[] = [
+const flatConfigProps: (keyof TypedFlatConfigItem)[] = [
   'name',
   'files',
   'ignores',
@@ -48,18 +52,37 @@ const VuePackages = [
   '@slidev/cli',
 ]
 
+export const defaultPluginRenaming = {
+  '@stylistic': 'style',
+  '@typescript-eslint': 'ts',
+  'import-x': 'import',
+  'n': 'node',
+  'vitest': 'test',
+  'yml': 'yaml',
+}
+
 /**
  * Construct an array of ESLint flat config items.
+ *
+ * @param {OptionsConfig & TypedFlatConfigItem} options
+ *  The options for generating the ESLint configurations.
+ * @param {Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[]>[]} userConfigs
+ *  The user configurations to be merged with the generated configurations.
+ * @returns {Promise<TypedFlatConfigItem[]>}
+ *  The merged ESLint configurations.
  */
-export async function imyangyong(
-  options: OptionsConfig & FlatConfigItem = {},
-  ...userConfigs: Awaitable<UserConfigItem | UserConfigItem[]>[]
-): Promise<UserConfigItem[]> {
+export function imyangyong(
+  options: OptionsConfig & TypedFlatConfigItem = {},
+  ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.FlatConfig[]>[]
+): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
+    astro: enableAstro = false,
+    autoRenamePlugins = true,
     componentExts = [],
     gitignore: enableGitignore = true,
     isInEditor = !!((process.env.VSCODE_PID || process.env.VSCODE_CWD || process.env.JETBRAINS_IDE || process.env.VIM) && !process.env.CI),
     react: enableReact = false,
+    solid: enableSolid = false,
     svelte: enableSvelte = false,
     typescript: enableTypeScript = isPackageExists('typescript'),
     unocss: enableUnoCSS = false,
@@ -75,7 +98,7 @@ export async function imyangyong(
   if (stylisticOptions && !('jsx' in stylisticOptions))
     stylisticOptions.jsx = options.jsx ?? true
 
-  const configs: Awaitable<FlatConfigItem[]>[] = []
+  const configs: Awaitable<TypedFlatConfigItem[]>[] = []
 
   if (enableGitignore) {
     if (typeof enableGitignore !== 'boolean') {
@@ -122,6 +145,7 @@ export async function imyangyong(
   if (stylisticOptions) {
     configs.push(stylistic({
       ...stylisticOptions,
+      lessOpinionated: options.lessOpinionated,
       overrides: getOverrides(options, 'stylistic'),
     }))
   }
@@ -149,6 +173,14 @@ export async function imyangyong(
     }))
   }
 
+  if (enableSolid) {
+    configs.push(solid({
+      overrides: getOverrides(options, 'solid'),
+      tsconfigPath: getOverrides(options, 'typescript').tsconfigPath,
+      typescript: !!enableTypeScript,
+    }))
+  }
+
   if (enableSvelte) {
     configs.push(svelte({
       overrides: getOverrides(options, 'svelte'),
@@ -161,6 +193,13 @@ export async function imyangyong(
     configs.push(unocss({
       ...resolveSubOptions(options, 'unocss'),
       overrides: getOverrides(options, 'unocss'),
+    }))
+  }
+
+  if (enableAstro) {
+    configs.push(astro({
+      overrides: getOverrides(options, 'astro'),
+      stylistic: stylisticOptions,
     }))
   }
 
@@ -216,16 +255,24 @@ export async function imyangyong(
     if (key in options)
       acc[key] = options[key] as any
     return acc
-  }, {} as FlatConfigItem)
+  }, {} as TypedFlatConfigItem)
   if (Object.keys(fusedConfig).length)
     configs.push([fusedConfig])
 
-  const merged = combine(
-    ...configs,
-    ...userConfigs,
-  )
+  let composer = new FlatConfigComposer<TypedFlatConfigItem, ConfigNames>()
 
-  return merged
+  composer = composer
+    .append(
+      ...configs,
+      ...userConfigs as any,
+    )
+
+  if (autoRenamePlugins) {
+    composer = composer
+      .renamePlugins(defaultPluginRenaming)
+  }
+
+  return composer
 }
 
 export type ResolvedOptions<T> = T extends boolean
