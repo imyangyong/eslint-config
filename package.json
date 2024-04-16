@@ -1,7 +1,7 @@
 {
   "name": "@imyangyong/eslint-config",
   "type": "module",
-  "version": "2.15.0",
+  "version": "1.5.0",
   "packageManager": "pnpm@8.15.7",
   "description": "Yong's ESLint config, Forked from antfu",
   "license": "MIT",
@@ -31,7 +31,7 @@
     "lint": "eslint .",
     "typegen": "esno scripts/typegen.ts",
     "prepack": "nr build",
-    "release": "bumpp --tag \"v%s\"",
+    "release": "bumpp --tag \"y%s\" && pnpm publish",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
