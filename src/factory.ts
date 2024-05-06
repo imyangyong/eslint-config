@@ -6,6 +6,7 @@ import type { Linter } from 'eslint'
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
 import {
   astro,
+  command,
   comments,
   filename,
   ignores,
@@ -53,6 +54,11 @@ const VuePackages = [
 ]
 
 export const defaultPluginRenaming = {
+  '@eslint-react': 'react',
+  '@eslint-react/dom': 'react-dom',
+  '@eslint-react/hooks-extra': 'react-hooks-extra',
+  '@eslint-react/naming-convention': 'react-naming-convention',
+
   '@stylistic': 'style',
   '@typescript-eslint': 'ts',
   'import-x': 'import',
@@ -126,6 +132,7 @@ export function imyangyong(
       stylistic: stylisticOptions,
     }),
     unicorn(),
+    command(),
 
     // Optional plugins (installed but not enabled by default)
     perfectionist(),
@@ -169,7 +176,7 @@ export function imyangyong(
   if (enableReact) {
     configs.push(react({
       overrides: getOverrides(options, 'react'),
-      typescript: !!enableTypeScript,
+      tsconfigPath: getOverrides(options, 'typescript').tsconfigPath,
     }))
   }
 
