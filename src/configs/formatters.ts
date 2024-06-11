@@ -1,5 +1,5 @@
 import { isPackageExists } from 'local-pkg'
-import { GLOB_ASTRO, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS } from '../globs'
+import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_XML } from '../globs'
 import type { VendoredPrettierOptions } from '../vender/prettier-types'
 import { ensurePackages, interopDefault, parserPlain } from '../utils'
 import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from '../types'
@@ -11,12 +11,13 @@ export async function formatters(
 ): Promise<TypedFlatConfigItem[]> {
   if (options === true) {
     options = {
-      astro: isPackageExists('astro'),
+      astro: isPackageExists('prettier-plugin-astro'),
       css: true,
       graphql: true,
       html: true,
       markdown: true,
       slidev: isPackageExists('@slidev/cli'),
+      xml: isPackageExists('@prettier/plugin-xml'),
     }
   }
 
@@ -24,6 +25,7 @@ export async function formatters(
     'eslint-plugin-format',
     options.markdown && options.slidev ? 'prettier-plugin-slidev' : undefined,
     options.astro ? 'prettier-plugin-astro' : undefined,
+    options.xml ? '@prettier/plugin-xml' : undefined,
   ])
 
   if (options.slidev && options.markdown !== true && options.markdown !== 'prettier')
@@ -49,6 +51,13 @@ export async function formatters(
     } satisfies VendoredPrettierOptions,
     options.prettierOptions || {},
   )
+
+  const prettierXmlOptions = {
+    xmlQuoteAttributes: 'double',
+    xmlSelfClosingSpace: true,
+    xmlSortAttributesByKey: false,
+    xmlWhitespaceSensitivity: 'ignore',
+  }
 
   const dprintOptions = Object.assign(
     {
@@ -142,6 +151,29 @@ export async function formatters(
     })
   }
 
+  if (options.xml) {
+    configs.push({
+      files: [GLOB_XML],
+      languageOptions: {
+        parser: parserPlain,
+      },
+      name: 'antfu/formatter/xml',
+      rules: {
+        'format/prettier': [
+          'error',
+          {
+            ...prettierXmlOptions,
+            ...prettierOptions,
+            parser: 'xml',
+            plugins: [
+              '@prettier/plugin-xml',
+            ],
+          },
+        ],
+      },
+    })
+  }
+
   if (options.markdown) {
     const formater = options.markdown === true
       ? 'prettier'
@@ -221,6 +253,20 @@ export async function formatters(
             ],
           },
         ],
+      },
+    })
+
+    configs.push({
+      files: [GLOB_ASTRO, GLOB_ASTRO_TS],
+      name: 'antfu/formatter/astro/disables',
+      rules: {
+        'style/arrow-parens': 'off',
+        'style/block-spacing': 'off',
+        'style/comma-dangle': 'off',
+        'style/indent': 'off',
+        'style/no-multi-spaces': 'off',
+        'style/quotes': 'off',
+        'style/semi': 'off',
       },
     })
   }

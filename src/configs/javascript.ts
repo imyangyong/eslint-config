@@ -35,6 +35,9 @@ export async function javascript(
       linterOptions: {
         reportUnusedDisableDirectives: true,
       },
+      name: 'imyangyong/javascript/setup',
+    },
+    {
       name: 'imyangyong/javascript/rules',
       plugins: {
         'antfu': pluginAntfu,
