@@ -6,9 +6,8 @@ _Look,_ code blocks are formatted *too!*
 ```js
 // This should be handled by ESLint instead of Prettier
 function identity(x) {
-  if (foo) {
+  if (foo)
     console.log('bar')
-  }
 }
 ```
 
