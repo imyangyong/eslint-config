@@ -1,7 +1,7 @@
 {
   "name": "@imyangyong/eslint-config",
   "type": "module",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "packageManager": "pnpm@9.3.0",
   "description": "Yong's ESLint config, Forked from antfu",
   "license": "MIT",
