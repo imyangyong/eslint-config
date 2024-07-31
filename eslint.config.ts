@@ -11,6 +11,7 @@ export default imyangyong(
     astro: true,
     typescript: true,
     formatters: true,
+    type: 'lib',
   },
   {
     ignores: [
@@ -34,8 +35,3 @@ export default imyangyong(
     },
   },
 )
-  .removeRules(
-    'ts/no-unsafe-member-access',
-    'ts/no-unsafe-argument',
-    'ts/no-unsafe-assignment',
-  )

@@ -26,7 +26,7 @@
 We provided a CLI tool to help you set up your project, or migrate from the legacy config to the new flat config with one command.
 
 ```bash
-npx @imyangyong/eslint-config@latest
+pnpm dlx @imyangyong/eslint-config@latest
 ```
 
 ### Manual Install
@@ -116,16 +116,16 @@ Add the following settings to your `.vscode/settings.json`:
 
   // Silent the stylistic rules in you IDE, but still auto fix them
   "eslint.rules.customizations": [
-    { "rule": "style/*", "severity": "off" },
-    { "rule": "format/*", "severity": "off" },
-    { "rule": "*-indent", "severity": "off" },
-    { "rule": "*-spacing", "severity": "off" },
-    { "rule": "*-spaces", "severity": "off" },
-    { "rule": "*-order", "severity": "off" },
-    { "rule": "*-dangle", "severity": "off" },
-    { "rule": "*-newline", "severity": "off" },
-    { "rule": "*quotes", "severity": "off" },
-    { "rule": "*semi", "severity": "off" }
+    { "rule": "style/*", "severity": "off", "fixable": true },
+    { "rule": "format/*", "severity": "off", "fixable": true },
+    { "rule": "*-indent", "severity": "off", "fixable": true },
+    { "rule": "*-spacing", "severity": "off", "fixable": true },
+    { "rule": "*-spaces", "severity": "off", "fixable": true },
+    { "rule": "*-order", "severity": "off", "fixable": true },
+    { "rule": "*-dangle", "severity": "off", "fixable": true },
+    { "rule": "*-newline", "severity": "off", "fixable": true },
+    { "rule": "*quotes", "severity": "off", "fixable": true },
+    { "rule": "*semi", "severity": "off", "fixable": true }
   ],
 
   // Enable eslint for all supported languages
@@ -174,6 +174,9 @@ And that's it! Or you can configure each integration individually, for example:
 import imyangyong from '@imyangyong/eslint-config'
 
 export default imyangyong({
+// Type of the project. 'lib' for libraries, the default is 'app'
+  type: 'lib',
+
   // Enable stylistic formatting rules
   // stylistic: true,
 
@@ -183,7 +186,7 @@ export default imyangyong({
     quotes: 'single', // or 'double'
   },
 
-  // TypeScript and Vue are auto-detected, you can also explicitly enable them:
+  // TypeScript and Vue are autoetected, you can also explicitly enable them:
   typescript: true,
   vue: true,
 
@@ -305,6 +308,25 @@ type foo = { bar: 2 }
 > Feel free to open issues if you want to combine this config with some other config presets but faced naming collisions. I am happy to figure out a way to make them work. But at this moment I have no plan to revert the renaming.
 
 Since v2.9.0, this preset will automatically rename the plugins also for your custom configs. You can use the original prefix to override the rules directly.
+
+<details>
+<summary>Change back to original prefix</summary>
+
+If you really want to use the original prefix, you can revert the plugin renaming by:
+
+```ts
+import antfu from '@antfu/eslint-config'
+
+export default antfu()
+  .renamePlugins({
+    ts: '@typescript-eslint',
+    yaml: 'yml',
+    node: 'n'
+    // ...
+  })
+```
+
+</details>
 
 ### Rules Overrides
 
