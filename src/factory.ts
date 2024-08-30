@@ -34,17 +34,15 @@ import { formatters } from './configs/formatters'
 import { regexp } from './configs/regexp'
 import type { RuleOptions } from './typegen'
 
-const flatConfigProps: (keyof TypedFlatConfigItem)[] = [
+const flatConfigProps = [
   'name',
-  'files',
-  'ignores',
   'languageOptions',
   'linterOptions',
   'processor',
   'plugins',
   'rules',
   'settings',
-]
+] satisfies (keyof TypedFlatConfigItem)[]
 
 const VuePackages = [
   'vue',
@@ -78,7 +76,7 @@ export const defaultPluginRenaming = {
  *  The merged ESLint configurations.
  */
 export function imyangyong(
-  options: OptionsConfig & TypedFlatConfigItem = {},
+  options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
@@ -86,16 +84,24 @@ export function imyangyong(
     autoRenamePlugins = true,
     componentExts = [],
     gitignore: enableGitignore = true,
-    isInEditor = isInEditorEnv(),
     jsx: enableJsx = true,
     react: enableReact = false,
     regexp: enableRegexp = true,
     solid: enableSolid = false,
     svelte: enableSvelte = false,
     typescript: enableTypeScript = isPackageExists('typescript'),
+    unicorn: enableUnicorn = true,
     unocss: enableUnoCSS = false,
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
   } = options
+
+  let isInEditor = options.isInEditor
+  if (isInEditor == null) {
+    isInEditor = isInEditorEnv()
+    if (isInEditor)
+      // eslint-disable-next-line no-console
+      console.log('[@antfu/eslint-config] Detected running in editor, some rules are disabled.')
+  }
 
   const stylisticOptions = options.stylistic === false
     ? false
@@ -110,10 +116,16 @@ export function imyangyong(
 
   if (enableGitignore) {
     if (typeof enableGitignore !== 'boolean') {
-      configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r(enableGitignore)]))
+      configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r({
+        name: 'antfu/gitignore',
+        ...enableGitignore,
+      })]))
     }
     else {
-      configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r({ strict: false })]))
+      configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r({
+        name: 'antfu/gitignore',
+        strict: false,
+      })]))
     }
   }
 
@@ -122,7 +134,7 @@ export function imyangyong(
 
   // Base configs
   configs.push(
-    ignores(),
+    ignores(options.ignores),
     javascript({
       isInEditor,
       overrides: getOverrides(options, 'javascript'),
@@ -135,12 +147,15 @@ export function imyangyong(
     imports({
       stylistic: stylisticOptions,
     }),
-    unicorn(),
     command(),
 
     // Optional plugins (installed but not enabled by default)
     perfectionist(),
   )
+
+  if (enableUnicorn) {
+    configs.push(unicorn(enableUnicorn === true ? {} : enableUnicorn))
+  }
 
   if (enableVue) {
     componentExts.push('vue')
@@ -265,6 +280,10 @@ export function imyangyong(
       options.formatters,
       typeof stylisticOptions === 'boolean' ? {} : stylisticOptions,
     ))
+  }
+
+  if ('files' in options) {
+    throw new Error('[@antfu/eslint-config] The first argument should not contain the "files" property as the options are supposed to be global. Place it in the second or later config instead.')
   }
 
   // User can optionally pass a flat config item to the first argument

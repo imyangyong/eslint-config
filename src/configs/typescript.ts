@@ -10,6 +10,7 @@ export async function typescript(
   const {
     componentExts = [],
     overrides = {},
+    overridesTypeAware = {},
     parserOptions = {},
     type = 'app',
   } = options
@@ -99,8 +100,8 @@ export async function typescript(
     // assign type-aware parser for type-aware files and type-unaware parser for the rest
     ...isTypeAware
       ? [
+          makeParser(false, files),
           makeParser(true, filesTypeAware, ignoresTypeAware),
-          makeParser(false, files, filesTypeAware),
         ]
       : [
           makeParser(false, files),
@@ -166,7 +167,10 @@ export async function typescript(
           files: filesTypeAware,
           ignores: ignoresTypeAware,
           name: 'imyangyong/typescript/rules-type-aware',
-          rules: typeAwareRules,
+          rules: {
+            ...typeAwareRules,
+            ...overridesTypeAware,
+          },
         }]
       : [],
     {

@@ -73,6 +73,13 @@ export interface OptionsFormatters {
   xml?: 'prettier' | boolean
 
   /**
+   * Enable formatting support for SVG.
+   *
+   * Currently only support Prettier.
+   */
+  svg?: 'prettier' | boolean
+
+  /**
    * Enable formatting support for Markdown.
    *
    * Support both Prettier and dprint.
@@ -127,6 +134,15 @@ export interface OptionsComponentExts {
   componentExts?: string[]
 }
 
+export interface OptionsUnicorn {
+  /**
+   * Include all rules recommended by `eslint-plugin-unicorn`, instead of only ones picked by Anthony.
+   *
+   * @default false
+   */
+  allRecommended?: boolean
+}
+
 export interface OptionsTypeScriptParserOptions {
   /**
    * Additional parser options for TypeScript.
@@ -152,6 +168,11 @@ export interface OptionsTypeScriptWithTypes {
    * @see https://typescript-eslint.io/linting/typed-linting/
    */
   tsconfigPath?: string
+
+  /**
+   * Override type aware rules.
+   */
+  overridesTypeAware?: TypedFlatConfigItem['rules']
 }
 
 export interface OptionsHasTypeScript {
@@ -247,6 +268,13 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @default true
    */
   jsx?: boolean
+
+  /**
+   * Options for eslint-plugin-unicorn.
+   *
+   * @default true
+   */
+  unicorn?: boolean | OptionsUnicorn
 
   /**
    * Enable test support.
