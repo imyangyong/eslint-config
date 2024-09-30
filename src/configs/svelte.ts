@@ -1,6 +1,7 @@
-import { ensurePackages, interopDefault } from '../utils'
 import type { OptionsFiles, OptionsHasTypeScript, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types'
+
 import { GLOB_SVELTE } from '../globs'
+import { ensurePackages, interopDefault } from '../utils'
 
 export async function svelte(
   options: OptionsHasTypeScript & OptionsOverrides & OptionsStylistic & OptionsFiles = {},
@@ -30,7 +31,7 @@ export async function svelte(
 
   return [
     {
-      name: 'antfu/svelte/setup',
+      name: 'imyangyong/svelte/setup',
       plugins: {
         svelte: pluginSvelte,
       },
@@ -46,7 +47,7 @@ export async function svelte(
             : null,
         },
       },
-      name: 'antfu/svelte/rules',
+      name: 'imyangyong/svelte/rules',
       processor: pluginSvelte.processors['.svelte'],
       rules: {
         'import/no-mutable-exports': 'off',

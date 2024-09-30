@@ -1,4 +1,5 @@
 import type { TypedFlatConfigItem } from '../types'
+
 import { GLOB_EXCLUDE } from '../globs'
 
 export async function ignores(userIgnores: string[] = []): Promise<TypedFlatConfigItem[]> {
@@ -8,7 +9,7 @@ export async function ignores(userIgnores: string[] = []): Promise<TypedFlatConf
         ...GLOB_EXCLUDE,
         ...userIgnores,
       ],
-      name: 'antfu/ignores',
+      name: 'imyangyong/ignores',
     },
   ]
 }

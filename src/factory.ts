@@ -1,11 +1,14 @@
-import { isPackageExists } from 'local-pkg'
-import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import type { Linter } from 'eslint'
+import type { RuleOptions } from './typegen'
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
+import { FlatConfigComposer } from 'eslint-flat-config-utils'
+import { isPackageExists } from 'local-pkg'
+
 import {
   astro,
   command,
   comments,
+  disables,
   ignores,
   imports,
   javascript,
@@ -29,10 +32,10 @@ import {
   vue,
   yaml,
 } from './configs'
-import { interopDefault, isInEditorEnv } from './utils'
 import { formatters } from './configs/formatters'
+
 import { regexp } from './configs/regexp'
-import type { RuleOptions } from './typegen'
+import { interopDefault, isInEditorEnv } from './utils'
 
 const flatConfigProps = [
   'name',
@@ -100,7 +103,7 @@ export function imyangyong(
     isInEditor = isInEditorEnv()
     if (isInEditor)
       // eslint-disable-next-line no-console
-      console.log('[@antfu/eslint-config] Detected running in editor, some rules are disabled.')
+      console.log('[@imyangyong/eslint-config] Detected running in editor, some rules are disabled.')
   }
 
   const stylisticOptions = options.stylistic === false
@@ -117,13 +120,13 @@ export function imyangyong(
   if (enableGitignore) {
     if (typeof enableGitignore !== 'boolean') {
       configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r({
-        name: 'antfu/gitignore',
+        name: 'imyangyong/gitignore',
         ...enableGitignore,
       })]))
     }
     else {
       configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r({
-        name: 'antfu/gitignore',
+        name: 'imyangyong/gitignore',
         strict: false,
       })]))
     }
@@ -281,6 +284,10 @@ export function imyangyong(
       typeof stylisticOptions === 'boolean' ? {} : stylisticOptions,
     ))
   }
+
+  configs.push(
+    disables(),
+  )
 
   if ('files' in options) {
     throw new Error('[@antfu/eslint-config] The first argument should not contain the "files" property as the options are supposed to be global. Place it in the second or later config instead.')
